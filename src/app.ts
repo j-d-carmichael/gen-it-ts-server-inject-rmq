@@ -1,11 +1,10 @@
-import http, { Http } from '@/http';
 import connect from 'async-redis-shared/connect';
+import http, { Http } from '@/http';
+import { httpExceptionErrorHandler } from '@/common-utils/expressMiddleware';
+import { fetchAndEmitPermissions } from '@/common-utils/permissions';
 import config from '@/config';
-import RabbitMQService from './events/rabbitMQ/RabbitMQService';
-import { httpExceptionErrorHandler } from 'common-utils/expressMiddleware';
-// import AllEddys from '@/services/eddys/AllEddys';
+import RabbitMQService from '@/events/rabbitMQ/RabbitMQService';
 import packageJson from '../package.json';
-import { fetchAndEmitPermissions } from 'common-utils/permissions';
 
 /**
  * Returns a promise allowing the server or cli script to know
@@ -15,7 +14,6 @@ export default async (port: number): Promise<Http> => {
   // Here is a good place to connect to databases if required or setup
   // filesystems or any other async action required before starting:
   await connect(config.redis);
-
   await RabbitMQService.setup(config.rabbitMQ);
   await fetchAndEmitPermissions({ packageJsonName: packageJson.name, RabbitMQService });
 

@@ -1,6 +1,6 @@
+import { DistributedSystemsCache } from 'distributed-systems-cache';
 import RabbitMQService from '@/events/rabbitMQ/RabbitMQService';
 import packageJson from '../../package.json';
-import { DistributedSystemsCache } from 'distributed-systems-cache';
 
 export interface MsRolesPermissionsRole {
   permissions: string[];

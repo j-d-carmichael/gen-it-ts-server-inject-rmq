@@ -1,5 +1,5 @@
-import { MsRolesPermissionsRoles } from '../rabbitMQ/interfaces';
 import RolesPermissionsCache from '@/cache/RolesPermissionsCache';
+import { MsRolesPermissionsRoles } from '../rabbitMQ/interfaces';
 
 export default async (
   payload: MsRolesPermissionsRoles,

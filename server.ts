@@ -1,8 +1,8 @@
-import 'common-utils/nodejs/logger';
+import '@/common-utils/nodejs/logger';
 import run from '@/cli/run';
-import app from './src/app';
-import appCli from './src/app.cli';
-import config from './src/config';
+import app from '@/app';
+import appCli from '@/app.cli';
+import config from '@/config';
 
 const cliInput = appCli();
 const PORT = cliInput.port || config.port;

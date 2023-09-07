@@ -1,7 +1,7 @@
-import { MsRolesPermissionsRequest } from '../rabbitMQ/interfaces';
-import { fetchAndEmitPermissions } from 'common-utils/permissions';
-import packageJson from '../../../package.json';
+import { fetchAndEmitPermissions } from '@/common-utils/permissions';
 import RabbitMQService from '@/events/rabbitMQ/RabbitMQService';
+import { MsRolesPermissionsRequest } from '../rabbitMQ/interfaces';
+import packageJson from '../../../package.json';
 
 export default async (
   payload: MsRolesPermissionsRequest,
