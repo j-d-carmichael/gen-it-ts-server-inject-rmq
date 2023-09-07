@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "generate:rabbitmq": "generate-it ../rabbitmq/openapi/build/rabbitmq_asyncapi_1.0.1.yml -y -t https://github.com/acrontum/generate-it-asyncapi-rabbitmq-fanout.git -o src/events",
+    "generate:rabbitmq": "generate-it ../rabbitmq/openapi/build/rabbitmq_asyncapi_1.0.1.yml -y -t https://github.com/acrontum/generate-it-asyncapi-rabbitmq-fanout.git -o src/events"
   },
   "dependencies": {
     "amqplib": "^0.10.3",
