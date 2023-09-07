@@ -13,14 +13,14 @@
   "injections": [
     {
       "isBaseTpl": true,
-      "source": "https://github.com/acr-lfr/generate-it-typescript-server.git"
-    },
-    {
-      "source": "https://github.com/acr-lfr/gen-it-ts-server-inject-rmq.git",
+      "source": "https://github.com/acr-lfr/generate-it-typescript-server.git",
       "deleteFiles": [
         "src/services/AccessTokenService.ts",
         "src/services/PermissionService.ts"
       ]
+    },
+    {
+      "source": "https://github.com/acr-lfr/gen-it-ts-server-inject-rmq.git"
     }
   ]
 }
