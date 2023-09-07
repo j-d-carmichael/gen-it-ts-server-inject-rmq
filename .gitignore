@@ -1,0 +1,9 @@
+!.gitkeep
+node_modules
+build/
+.env
+.DS_Store
+npm-debug.log
+.openapi-nodegen/git/
+src/events/.openapi-nodegen/git
+coverage

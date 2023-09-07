@@ -1,0 +1,4249 @@
+asyncapi: 2.0.0
+info:
+  title: ms_rabbitmq_d
+  version: 1.0.1
+  description: Async api documentation of routing keys and payloads
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+defaultContentType: application/json
+channels:
+  /ms-3pie/cache/clear:
+    description: Used to request settings for a given domain
+    publish:
+      operationId: ms3PieCacheClearPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/Ms3PieCacheClear'
+  /ms-3pie/settings/fetch:
+    description: Used to request settings for a given domain
+    publish:
+      operationId: ms3PieSettingsFetchPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/Ms3PieSettingsFetch'
+  /ms-archiver/createArchive:
+    description: Trigger when you want to send data to be stored in the archiver service
+    publish:
+      operationId: msArchiverCreateArchivePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsArchiverArchive'
+  /ms-authentication/admin/user-delete:
+    description: >
+      When an admin deletes a user from the main super admin area - this event
+      is triggered
+    publish:
+      operationId: msAuthenticationAdminUserDeletePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationAdminUserDeleteModel'
+  /ms-authentication/connection/changed:
+    description: >
+      When a new connection change occurs the new cache values are emitted in
+      the payload, ie after a user submits or responds to a connection request
+    publish:
+      operationId: msAuthenticationConnectionChangedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationConnectionCacheModel'
+  /ms-authentication/connection/request/accepted:
+    description: A request to connect with someone was accepted
+    publish:
+      operationId: msAuthenticationConnectionRequestAcceptedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationConnectionRequest'
+  /ms-authentication/connection/request/received:
+    description: A request to connect with someone was recieved
+    publish:
+      operationId: msAuthenticationConnectionRequestReceivedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationConnectionRequest'
+  /ms-authentication/invitation-code/invite:
+    description: |
+      When someone invites another to liffery
+    publish:
+      operationId: msAuthenticationInvitationCodeInvitePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationInvitationCodeInviteModel'
+  /ms-authentication/invitation-code/used:
+    description: |
+      When someone used an invite code
+    publish:
+      operationId: msAuthenticationInvitationCodeUsedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationInvitationCodeUsedModel'
+  /ms-authentication/request/user:
+    description: When a new user is created this event is triggered
+    publish:
+      operationId: msAuthenticationRequestUserPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/CommonUsernameModel'
+  /ms-authentication/request/userConnections:
+    description: Requests a users connections to be emitted
+    publish:
+      operationId: msAuthenticationRequestUserConnectionsPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/CommonUsernameModel'
+  /ms-authentication/role/assign:
+    description: When triggered will assign a user a role
+    publish:
+      operationId: msAuthenticationRoleAssignPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationRoleAssignment'
+  /ms-authentication/role/assigned:
+    description: triggered after a role is assgined to a user, emits user with roles
+    publish:
+      operationId: msAuthenticationRoleAssignedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationRoleAssigned'
+  /ms-authentication/role/unassign:
+    description: When triggered will assign a user a role
+    publish:
+      operationId: msAuthenticationRoleUnassignPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationRoleAssignment'
+  /ms-authentication/user/changed:
+    description: When a new user is created this event is triggered
+    publish:
+      operationId: msAuthenticationUserChangedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationUserObject'
+  /ms-authentication/user/created:
+    description: When a new user is created this event is triggered
+    publish:
+      operationId: msAuthenticationUserCreatedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationUserObject'
+  /ms-authentication/user-settings/updated:
+    description: After user settings are updated - this event is triggered
+    publish:
+      operationId: msAuthenticationUserSettingsUpdatedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsAuthenticationUserSetting'
+  /ms-b2c-messaging/newMessageNotification:
+    description: Send notification to user to notify them about a new b2c message
+    publish:
+      operationId: msB2CMessagingNewMessageNotificationPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsB2CMessagingNewMessageNotification'
+  /ms-business-account-mgmt/3pie/settings/changed:
+    description: Triggered when the 3pie sidebard settings have been changed for a domain
+    publish:
+      operationId: msBusinessAccountMgmt3PieSettingsChangedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsBusinessAccountMgmt3PieSettingsChanged'
+  /ms-business-account-mgmt/access-domain/changed:
+    description: Emits the access for a domain
+    publish:
+      operationId: msBusinessAccountMgmtAccessDomainChangedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsBusinessAccountMgmtAccessChanged'
+  /ms-business-account-mgmt/access-domain/get:
+    description: A request for who has access to a domain
+    publish:
+      operationId: msBusinessAccountMgmtAccessDomainGetPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsBusinessAccountMgmtAccessGet'
+  /ms-business-account-mgmt/c2b/iterate-through-queue:
+    description: >-
+      After an email is assigned to a domain this is triggered in a loop to
+      email each comment to the business
+    publish:
+      operationId: msBusinessAccountMgmtC2BIterateThroughQueuePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemCommentC2BIterateQueueModel'
+  /ms-business-account-mgmt/c2b/new-domain-email-match:
+    description: >-
+      A new domain-email match has been made by an admin, event triggered to
+      send the emails to business
+    publish:
+      operationId: msBusinessAccountMgmtC2BNewDomainEmailMatchPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsBusinessAccountMgmtC2BModel'
+  /ms-business-account-mgmt/c2b/send-comment-to-business:
+    description: >-
+      Triggers the check on whether the domain has a matched email, sends if
+      yes, creates queue if no
+    publish:
+      operationId: msBusinessAccountMgmtC2BSendCommentToBusinessPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemCommentC2BSendEmailModel'
+  /ms-business-account-mgmt/new-account:
+    description: A new account business account was just created
+    publish:
+      operationId: msBusinessAccountMgmtNewAccountPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsBusinessAccountMgmtAccount'
+  /ms-business-account-mgmt/new-domain:
+    description: A new account business account was just created
+    publish:
+      operationId: msBusinessAccountMgmtNewDomainPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsBusinessAccountMgmtDomain'
+  /ms-channel/chat/unread:
+    description: >-
+      The scheduler emits this for each user that should be notifified of a chat
+      message
+    publish:
+      operationId: msChannelChatUnreadPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelChatUnreadModel'
+  /ms-channel/concierge/jobAssigned:
+    description: When a concierge job is assigned - i.e. chosen by a concierge
+    publish:
+      operationId: msChannelConciergeJobAssignedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelModel'
+  /ms-channel/concierge/jobCompleted:
+    description: When a concierge job is completed
+    publish:
+      operationId: msChannelConciergeJobCompletedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelConciergeJobCompleted'
+  /ms-channel/concierge/jobCompletedGracePeriodPassed:
+    description: >-
+      When a concierge job is completed and past the grace period - i.e.
+      concierge now removed
+    publish:
+      operationId: msChannelConciergeJobCompletedGracePeriodPassedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelModel'
+  /ms-channel/concierge/jobCreated:
+    description: When a concierge job is created
+    publish:
+      operationId: msChannelConciergeJobCreatedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelModel'
+  /ms-channel/concierge/unassignedJobsReminder:
+    description: >-
+      Email the concierge group about all the unassigned jobs still available to
+      be completed
+    publish:
+      operationId: msChannelConciergeUnassignedJobsReminderPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelModels'
+  /ms-channel/concierge/unfinishedJobReminder:
+    description: Email the concierge about an unfinished job which is assigned to them
+    publish:
+      operationId: msChannelConciergeUnfinishedJobReminderPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelModel'
+  /ms-channel/created:
+    description: When a channel is created
+    publish:
+      operationId: msChannelCreatedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelCreated'
+  /ms-channel/deleted:
+    description: When a channel is deleted
+    publish:
+      operationId: msChannelDeletedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelDeleted'
+  /ms-channel/event-channels/notifications/eventDate:
+    description: Channel event has happened
+    publish:
+      operationId: msChannelEventChannelsNotificationsEventDatePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelEventChannelsNotificationsEventDate'
+  /ms-channel/event-channels/notifications/sendReminder:
+    description: Reminder that an event is upcoming according to user preference
+    publish:
+      operationId: msChannelEventChannelsNotificationsSendReminderPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelEventChannelsNotificationsSendReminder'
+  /ms-channel/invite/accepted:
+    description: An invite to a channel has been accepted
+    publish:
+      operationId: msChannelInviteAcceptedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelJoin'
+  /ms-channel/invite/send:
+    description: An invite to a channel sent out
+    publish:
+      operationId: msChannelInviteSendPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelJoin'
+  /ms-channel/join/accepted:
+    description: A request to join was accepted
+    publish:
+      operationId: msChannelJoinAcceptedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelJoin'
+  /ms-channel/join/public:
+    description: Someone joined a public channel
+    publish:
+      operationId: msChannelJoinPublicPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelJoin'
+  /ms-channel/join/request:
+    description: Someone requested to join a channel
+    publish:
+      operationId: msChannelJoinRequestPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelJoin'
+  /ms-channel/request/toJoinDefaultChannels:
+    description: >-
+      Requests a user to join the default channels, the channels to join is
+      managed by the channels service
+    publish:
+      operationId: msChannelRequestToJoinDefaultChannelsPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/CommonUsernameModel'
+  /ms-channel/request/userSubscriptions:
+    description: Requests a users channel subscriptions to be emitted
+    publish:
+      operationId: msChannelRequestUserSubscriptionsPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/CommonUsernameModel'
+  /ms-channel/subscription/change:
+    description: When a user subscription to a channel changes
+    publish:
+      operationId: msChannelSubscriptionChangePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelSubscriptionChangeModel'
+  /ms-channel/subscription/request:
+    description: When a user subscription to a channel changes
+    publish:
+      operationId: msChannelSubscriptionRequestPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/CommonUsernameModel'
+  /ms-channel/updated:
+    description: When a channel is updated
+    publish:
+      operationId: msChannelUpdatedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChannelUpdated'
+  /ms-chat/channel/mention:
+    description: When someone has mentioned someone else in a chat comment
+    publish:
+      operationId: msChatChannelMentionPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChatMentionOnComment'
+  /ms-chat/channel/new-message:
+    description: When a new message is published
+    publish:
+      operationId: msChatChannelNewMessagePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsChatMessageModel'
+  /ms-content-categorisation/item/contentCategorised:
+    description: >-
+      When an item is saved or edited, or if picked up on the cron cleaner, the
+      content will be categorised and returned
+    publish:
+      operationId: msContentCategorisationItemContentCategorisedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsContentCategorisationItemContentCategorised'
+  /ms-content-categorisation/item/contentCategorisedOfSameImage:
+    description: >-
+      After categorising multiple items with the same image, pass back to save
+      the categories
+    publish:
+      operationId: msContentCategorisationItemContentCategorisedOfSameImagePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: >-
+            #/components/schemas/MsContentCategorisationItemContentCategorisedOfSameImage
+  /ms-content-categorisation/item/recategoriseItems:
+    description: >-
+      Request the recategorisation of items, either all or limit to just those
+      with logos
+    publish:
+      operationId: msContentCategorisationItemRecategoriseItemsPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsContentCategorisationItemRecategoriseItems'
+  /ms-content-check/contentFlagged:
+    description: When content is flagged this event is triggered
+    publish:
+      operationId: msContentCheckContentFlaggedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsContentCheckFlaggedContent'
+  /ms-hashtag/created:
+    description: New hashtag has been upserted
+    publish:
+      operationId: msHashtagCreatedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsHashtagTagModel'
+  /ms-hashtag/decreaseUseCount:
+    description: New hashtag use count decreased
+    publish:
+      operationId: msHashtagDecreaseUseCountPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsHashtagTagUseCountChangeModel'
+  /ms-hashtag/deleted:
+    description: New hashtag has been upserted
+    publish:
+      operationId: msHashtagDeletedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsHashtagTagModel'
+  /ms-hashtag/increaseUseCount:
+    description: New hashtag use count increased
+    publish:
+      operationId: msHashtagIncreaseUseCountPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsHashtagTagUseCountChangeModel'
+  /ms-image-cache/clear:
+    description: When a new user is created this event is triggered
+    publish:
+      operationId: msImageCacheClearPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/ImageModel'
+  /ms-image-write/new:
+    description: When a new image is written to the server this event is triggered
+    publish:
+      operationId: msImageWriteNewPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsImageWriteNewModel'
+  /ms-item/categoriseItem:
+    description: >-
+      To categorise a single item at a specific point in the API - e.g. after an
+      item has uploaded a user image
+    publish:
+      operationId: msItemCategoriseItemPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemModel'
+  /ms-item/categoriseItemsOfSameImage:
+    description: >-
+      Categorise multiple items with the same image path - will categorise once
+      and update many
+    publish:
+      operationId: msItemCategoriseItemsOfSameImagePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemCategoriseItemsOfSameImage'
+  /ms-item/comment/c2b/commented:
+    description: A comment from a customer to a business (c2b) will trigger this event
+    publish:
+      operationId: msItemCommentC2BCommentedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemCommentC2BModel'
+  /ms-item/comment/commented:
+    description: >-
+      A comment after a previous comment will trigger this event to be sent to
+      the related commeters
+    publish:
+      operationId: msItemCommentCommentedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemItemAndActor'
+  /ms-item/comment/liked:
+    description: Fired from the items service when an item's comment has been liked
+    publish:
+      operationId: msItemCommentLikedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemItemAndActor'
+  /ms-item/comment/mention:
+    description: When a username is mentioned in a comment
+    publish:
+      operationId: msItemCommentMentionPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemMentionOnComment'
+  /ms-item/comment/replied:
+    description: Someone replied toa comment, this lets all rel. people know about it.
+    publish:
+      operationId: msItemCommentRepliedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemItemAndActor'
+  /ms-item/comment/reply/liked:
+    description: Someone liked your reply to an item comment
+    publish:
+      operationId: msItemCommentReplyLikedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemItemAndActor'
+  /ms-item/comment/reply/upsert:
+    description: Fired when an item is created or updated
+    publish:
+      operationId: msItemCommentReplyUpsertPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemCommentReplyModel'
+  /ms-item/comment/upsert:
+    description: Fired when an item is created or updated
+    publish:
+      operationId: msItemCommentUpsertPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemCommentModel'
+  /ms-item/commented:
+    description: When someone adds a comment to an item
+    publish:
+      operationId: msItemCommentedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemItemAndActor'
+  /ms-item/item/conciergePostedItem:
+    description: When a concierge posts an item into a research concierge channel
+    publish:
+      operationId: msItemItemConciergePostedItemPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemConciergeItemPosted'
+  /ms-item/item/deleted:
+    description: Fired from the items service when an item has been deleted
+    publish:
+      operationId: msItemItemDeletedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemModel'
+  /ms-item/item/deletedByNotItemOwner:
+    description: >-
+      Fired from the items service when an item has been deleted by someone
+      other than the item owner
+    publish:
+      operationId: msItemItemDeletedByNotItemOwnerPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemManagedByNotItemOwner'
+  /ms-item/item/editedByNotItemOwner:
+    description: >-
+      Fired from the items service when an item has been edited by someone other
+      than the item owner
+    publish:
+      operationId: msItemItemEditedByNotItemOwnerPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemManagedByNotItemOwner'
+  /ms-item/item/new:
+    description: Fired from the items service when an item has been liked
+    publish:
+      operationId: msItemItemNewPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/CommonNewContentModel'
+  /ms-item/item/reminder:
+    description: Send a notification to remind user about this item as requested
+    publish:
+      operationId: msItemItemReminderPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemModel'
+  /ms-item/item/upsert:
+    description: Fired when an item is created or updated
+    publish:
+      operationId: msItemItemUpsertPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemModel'
+  /ms-item/item-image-cache-delete:
+    description: When a user uploaded images is soft deleted this event will be called
+    publish:
+      operationId: msItemItemImageCacheDeletePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemItemCacheImageDelete'
+  /ms-item/liked:
+    description: Fired from the items service when an item has been liked
+    publish:
+      operationId: msItemLikedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemItemAndActor'
+  /ms-item/report:
+    description: A user reported content
+    publish:
+      operationId: msItemReportPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemItemReport'
+  /ms-item/shopping-list-count/change:
+    description: A request for a specific usernames getgotlist count
+    publish:
+      operationId: msItemShoppingListCountChangePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemShoppingListCount'
+  /ms-item/shopping-list-count/get:
+    description: A request for a specific usernames getgotlist count
+    publish:
+      operationId: msItemShoppingListCountGetPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/CommonUsernameModel'
+  /ms-item/uncategorisedItems:
+    description: >-
+      The response to polling for finding uncategorised items sends away to be
+      categorised
+    publish:
+      operationId: msItemUncategorisedItemsPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsItemModels'
+  /ms-notification/aggregator/create:
+    description: A new aggregator email should be created and sent
+    publish:
+      operationId: msNotificationAggregatorCreatePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsNotificationAggregatorCreate'
+  /ms-notification/email/transactional/accountDeletionTriggered:
+    description: Account deletion triggered
+    publish:
+      operationId: msNotificationEmailTransactionalAccountDeletionTriggeredPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsNotificationEmailAccountDeletionTriggered'
+  /ms-notification/email/transactional/confirmEmail:
+    description: Confirm email with hash
+    publish:
+      operationId: msNotificationEmailTransactionalConfirmEmailPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsNotificationEmailConfirmEmail'
+  /ms-notification/email/transactional/httpException:
+    description: A http exception was thrown, auto-email system
+    publish:
+      operationId: msNotificationEmailTransactionalHttpExceptionPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsNotificationEmailHttpException'
+  /ms-notification/email/transactional/passwordReset:
+    description: Password reset email
+    publish:
+      operationId: msNotificationEmailTransactionalPasswordResetPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsNotificationEmailPasswordReset'
+  /ms-notification/email/transactional/preleaseCode:
+    description: Password reset email
+    publish:
+      operationId: msNotificationEmailTransactionalPreleaseCodePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsNotificationEmailPreleaseCode'
+  /ms-notification/email/transactional/rabbitMQError:
+    description: A rabbit MQ error was thrown, auto-email system
+    publish:
+      operationId: msNotificationEmailTransactionalRabbitMqErrorPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsNotificationEmailRabbitMqError'
+  /ms-notification/email/transactional/systemEmail:
+    description: >-
+      Delivers a js object to the system admin, the payload sent to the queue
+      must be a json string
+    publish:
+      operationId: msNotificationEmailTransactionalSystemEmailPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsNotificationEmailSystemEmail'
+  /ms-notification/email/transactional/welcome:
+    description: Welcome to the application email
+    publish:
+      operationId: msNotificationEmailTransactionalWelcomePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsNotificationEmailWelcome'
+  /ms-notification/notification/created:
+    description: Alerts that a new notification has been created
+    publish:
+      operationId: msNotificationNotificationCreatedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsNotificationNotificationCreated'
+  /ms-roles-permissions/receive:
+    description: Accepts a new set of permissions
+    publish:
+      operationId: msRolesPermissionsReceivePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsRolesPermissionsPermissions'
+  /ms-roles-permissions/request:
+    description: Requests services to emit their permissions
+    publish:
+      operationId: msRolesPermissionsRequestPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsRolesPermissionsRequest'
+  /ms-roles-permissions/rolesChanged:
+    description: Accepts a new set of permissions
+    publish:
+      operationId: msRolesPermissionsRolesChangedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsRolesPermissionsRoles'
+  /ms-roles-permissions/rolesRequest:
+    description: Requests the roles cache to be emitted
+    publish:
+      operationId: msRolesPermissionsRolesRequestPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsRolesPermissionsRequest'
+  /ms-scheduler/b2c-messaging/expireMessages:
+    description: >-
+      Continous polling of ms-b2c-messaging to handle the auto-expiration of old
+      messages
+    publish:
+      operationId: msSchedulerB2CMessagingExpireMessagesPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerGeneral'
+  /ms-scheduler/b2c-messaging/newMessages:
+    description: >-
+      Continous polling of ms-b2c-messaging to handle the notifications for new
+      messages
+    publish:
+      operationId: msSchedulerB2CMessagingNewMessagesPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerGeneral'
+  /ms-scheduler/concierge/jobCompletedGracePeriodPassed:
+    description: Scheduler to finish jobs which are completed and past the grace period
+    publish:
+      operationId: msSchedulerConciergeJobCompletedGracePeriodPassedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerGeneral'
+  /ms-scheduler/concierge/jobReminders:
+    description: >-
+      Scheduler to set channel service querying for any jobs that need reminding
+      about
+    publish:
+      operationId: msSchedulerConciergeJobRemindersPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerGeneral'
+  /ms-scheduler/content-categorisation/item/findUncategorised:
+    description: >-
+      Continous polling of ms-item to search for and handle any items without
+      categories
+    publish:
+      operationId: msSchedulerContentCategorisationItemFindUncategorisedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerGeneral'
+  /ms-scheduler/event-channels/eventDate:
+    description: Continous polling of ms-channels to handle the passing of event date
+    publish:
+      operationId: msSchedulerEventChannelsEventDatePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerGeneral'
+  /ms-scheduler/event-channels/notificationReminders:
+    description: >-
+      Continous polling of ms-channels to check for upcoming channel events and
+      send notification reminders
+    publish:
+      operationId: msSchedulerEventChannelsNotificationRemindersPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerGeneral'
+  /ms-scheduler/itemReminders:
+    description: Polling trigger to send out item reminder notifications
+    publish:
+      operationId: msSchedulerItemRemindersPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerGeneral'
+  /ms-scheduler/notification-aggregator/daily:
+    description: Fired daily according to cron settings in scheduler
+    publish:
+      operationId: msSchedulerNotificationAggregatorDailyPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerNotificationAggregator'
+  /ms-scheduler/notification-aggregator/twiceAWeek:
+    description: Fired twice a week according to cron settings in scheduler
+    publish:
+      operationId: msSchedulerNotificationAggregatorTwiceAWeekPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerNotificationAggregator'
+  /ms-scheduler/notification-aggregator/weekly:
+    description: Fired once a week according to cron settings in scheduler
+    publish:
+      operationId: msSchedulerNotificationAggregatorWeeklyPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerNotificationAggregator'
+  /ms-scheduler/rescrapeUrls:
+    description: >-
+      Trigger to rescrape URL's on any service that may require it - e.g. item
+      or url-preview
+    publish:
+      operationId: msSchedulerRescrapeUrlsPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerGeneral'
+  /ms-scheduler/support-data-aggregator/email-data-fetch-trigger:
+    description: Fired once a week according to cron settings in scheduler
+    publish:
+      operationId: msSchedulerSupportDataAggregatorEmailDataFetchTriggerPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSchedulerGeneral'
+  /ms-server-side-renderer/getAllRoutesToCache:
+    description: Request all routes that should be pre-cached from all services
+    publish:
+      operationId: msServerSideRendererGetAllRoutesToCachePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsServerSideRendererGetAllRoutesToCache'
+  /ms-server-side-renderer/newRouteToCache:
+    description: 1 new route to cache
+    publish:
+      operationId: msServerSideRendererNewRouteToCachePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsServerSideRendererNewRouteToCache'
+  /ms-server-side-renderer/rebuildAllStaticCache:
+    description: Request all static routes to be rebuilt
+    publish:
+      operationId: msServerSideRendererRebuildAllStaticCachePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/CommonDateModel'
+  /ms-static-api-data/emit-data/channelUnits:
+    description: Static data for channel units
+    publish:
+      operationId: msStaticApiDataEmitDataChannelUnitsPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsStaticApiDataChannelUnitsModels'
+  /ms-static-api-data/emit-data/contentCategoryGroupings:
+    description: Static data for content category groupings
+    publish:
+      operationId: msStaticApiDataEmitDataContentCategoryGroupingsPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsStaticApiDataContentCategoryGroupingsModel'
+  /ms-static-api-data/emit-data/contentCategoryLabels:
+    description: Static data for content category labels
+    publish:
+      operationId: msStaticApiDataEmitDataContentCategoryLabelsPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsStaticApiDataContentCategoryLabelsModel'
+  /ms-static-api-data/requestData:
+    description: Request static API data
+    publish:
+      operationId: msStaticApiDataRequestDataPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsStaticApiDataRequestDataModel'
+  /ms-stats/create:
+    description: A new stat object should be created
+    publish:
+      operationId: msStatsCreatePublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsStatsCreate'
+  /ms-support-data-aggregator/madeby/newItem:
+    description: When a new data object for the madeby collection should be persisted
+    publish:
+      operationId: msSupportDataAggregatorMadebyNewItemPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsSupportDataAggregatorMadebyNewItem'
+  /ms-url-preview/scraper-finished:
+    description: Called when a URL scraper has finished
+    publish:
+      operationId: msUrlPreviewScraperFinishedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsUrlPreviewScraperFinishedModel'
+  /ms-version-control/recordAppVersionUsed:
+    description: Keep a record of the app version used
+    publish:
+      operationId: msVersionControlRecordAppVersionUsedPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsVersionControlRecordAppVersionUsed'
+  /ms-version-control/updateLatestAppVersions:
+    description: >-
+      Fired via the cron service to update the latest version of all the app
+      types, alternatively can send a payload of an app type to update that
+      specific app type version
+    publish:
+      operationId: msVersionControlUpdateLatestAppVersionsPublish
+      message:
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/MsVersionControlUpdateLatestAppVersions'
+components:
+  schemas:
+    ChannelModel:
+      type: object
+      properties:
+        slug:
+          type: string
+        ownerUsername:
+          type: string
+          description: >-
+            This is injected during creation of the channel and will be the
+            username of the creator
+        imagePath:
+          type: string
+          description: >-
+            The path to the image. This will either be a user uploaded image or
+            a placeholder image path.
+    CommonDateModel:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+    CommonNewContentModel:
+      type: object
+      properties:
+        toUsernames:
+          type: array
+          items:
+            type: string
+        fromActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+    CommonUsernameModel:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+    ImageModel:
+      type: object
+      required:
+        - filePath
+      properties:
+        filePath:
+          type: string
+          description: File path to the image server
+    ImageModels:
+      type: array
+      description: User uploaded photos of an item
+      items:
+        $ref: '#/components/schemas/ImageModel'
+    Ms3PieCacheClear:
+      type: object
+      properties:
+        clear:
+          type: boolean
+    Ms3PieSettingsFetch:
+      type: object
+      properties:
+        originToFetch:
+          type: string
+    MsArchiverArchive:
+      allOf:
+        - type: object
+          required:
+            - modifierUsername
+            - archiveType
+            - data
+          properties:
+            _id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            modifierUsername:
+              type: string
+            archiveType:
+              type: string
+              description: >-
+                Naming convention is <service name>_<collection name> ... e.g.
+                ms-roles-permissions_role
+            data:
+              type: string
+              description: As JSON.stringify( document )
+    MsAuthenticationAdminUserDeleteModel:
+      type: object
+      required:
+        - deleteUsername
+        - deletedByUsername
+      properties:
+        deleteUsername:
+          type: string
+        deletedByUsername:
+          type: string
+    MsAuthenticationConnectionCacheModel:
+      type: object
+      required:
+        - username
+        - connections
+      properties:
+        username:
+          type: string
+        connections:
+          type: array
+          items:
+            type: object
+            required:
+              - state
+              - updated
+              - username
+              - firstName
+              - lastName
+            properties:
+              state:
+                type: string
+                enum:
+                  - requestSent
+                  - requestReceived
+                  - requestReceivedRejected
+                  - requestSentRejected
+                  - requestReceivedAccepted
+                  - requestSentAccepted
+                  - requestSentCancelled
+                  - requestReceivedCancelled
+                  - requestSentAcceptedDisconnectByRequester
+                  - requestReceivedAcceptedDisconnectedByRequester
+                  - requestReceivedAcceptedDisconnectedByReceiver
+                  - requestSentAcceptedDisconnectedByReceiver
+              updated:
+                type: string
+                format: date
+              username:
+                type: string
+              firstName:
+                type: string
+              lastName:
+                type: string
+    MsAuthenticationConnectionRequest:
+      type: object
+      properties:
+        toActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        fromActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+    MsAuthenticationInvitationCodeInviteModel:
+      type: object
+      required:
+        - toActor
+        - fromActor
+        - code
+        - message
+      properties:
+        toActor:
+          type: object
+          required:
+            - email
+            - firstName
+            - lastName
+          properties:
+            email:
+              type: string
+            firstName:
+              type: string
+            lastName:
+              type: string
+        fromActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        code:
+          type: string
+        message:
+          type: string
+    MsAuthenticationInvitationCodeUsedModel:
+      type: object
+      properties:
+        toActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        fromActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+    MsAuthenticationRoleAssigned:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/MsAuthenticationUserObject'
+        roles:
+          type: array
+          items:
+            type: string
+    MsAuthenticationRoleAssignment:
+      type: object
+      properties:
+        username:
+          type: string
+        role:
+          type: string
+    MsAuthenticationUserObject:
+      type: object
+      required:
+        - email
+        - firstName
+        - lastName
+        - username
+      properties:
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        username:
+          type: string
+    MsAuthenticationUserSetting:
+      allOf:
+        - type: object
+          required:
+            - itemEntry
+            - lastChannelAddedTo
+          properties:
+            itemEntry:
+              type: object
+              required:
+                - editable
+                - addType
+              properties:
+                addType:
+                  $ref: >-
+                    #/channels/~1ms-stats~1create/publish/message/payload/allOf/1/properties/source
+                fromPath:
+                  description: The URL path the item was added from
+                  type: string
+                editable:
+                  $ref: >-
+                    #/channels/~1ms-item~1liked/publish/message/payload/properties/item/allOf/0/properties/editable
+                reminder:
+                  type: object
+                  required:
+                    - isSet
+                  properties:
+                    isSet:
+                      type: boolean
+                    reminder:
+                      $ref: >-
+                        #/channels/~1ms-item~1liked/publish/message/payload/properties/item/allOf/1/properties/reminder/properties/outstanding
+            lastChannelAddedTo:
+              type: object
+              description: The shape of this object needs defining
+            searchSettings:
+              type: object
+            toursSeen:
+              type: object
+              properties:
+                welcome:
+                  type: object
+                  required:
+                    - takeTheTour
+                  description: Take the Tour as seen by new users on first login
+                  properties:
+                    takeTheTour:
+                      type: number
+                      default: 0
+                channel:
+                  type: object
+                  description: Tours relating to channels
+                  required:
+                    - chatOpened
+                  properties:
+                    chatOpened:
+                      type: number
+                      default: 0
+                dashboard:
+                  type: object
+                  description: Tours relating to the dashboard
+                  required:
+                    - overview
+                  properties:
+                    overview:
+                      type: number
+                      default: 0
+                profile:
+                  type: object
+                  description: Tours relating to the profile page
+                  required:
+                    - overview
+                  properties:
+                    overview:
+                      type: number
+                      default: 0
+        - type: object
+          properties:
+            user:
+              $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+    MsAuthenticationUsername:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+    MsB2CMessagingNewMessageNotification:
+      type: object
+      required:
+        - recipient
+        - uniqueItemName
+        - interactionType
+        - businessName
+      properties:
+        recipient:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        uniqueItemName:
+          type: string
+        interactionType:
+          type: string
+          description: >-
+            The different types of interactions a user may have had with the
+            given URL which warrants them receiving a notification
+          enum:
+            - itemPost
+            - itemPin
+            - itemLike
+            - itemComment
+            - itemCommentReply
+            - itemShoppingListStageGet
+            - itemShoppingListStageGot
+            - channelMember
+        businessName:
+          type: string
+    MsBusinessAccountMgmt3PieSettingsChanged:
+      allOf:
+        - allOf:
+            - type: object
+              required:
+                - accountId
+                - active
+                - origin
+                - sidebarSettings
+              properties:
+                permittedIps:
+                  type: array
+                  items:
+                    type: string
+                accountId:
+                  type: string
+                  description: The foreign relation key.. ie the ../account/model id
+                managers:
+                  type: array
+                  items:
+                    allOf:
+                      - $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+                      - type: object
+                        properties:
+                          createdAt:
+                            type: string
+                            format: date-time
+                active:
+                  type: boolean
+                origin:
+                  type: string
+                sidebarSettings:
+                  type: object
+                  required:
+                    - addItemTargets
+                    - customCSS
+                    - featureSwitch
+                    - initialStateOpen
+                    - promoteUrlsTitle
+                    - promoteUrls
+                    - position
+                    - showOwnItems
+                    - showFriendsItems
+                    - showOthersItems
+                    - unauthenticated
+                  properties:
+                    addItemTargets:
+                      type: object
+                      properties:
+                        icon:
+                          type: object
+                          required:
+                            - active
+                            - inactive
+                          properties:
+                            active:
+                              type: object
+                              required:
+                                - d
+                                - fill
+                                - stroke
+                                - strokeWidth
+                                - strokeLinecap
+                                - strokeLinejoin
+                              properties:
+                                d:
+                                  type: string
+                                  example: >-
+                                    M20.0066 2.5895C19.518 2.085 18.9377 1.6848
+                                    18.2991 1.41175C17.6605 1.13871 16.976
+                                    0.998169 16.2847 0.998169C15.5934 0.998169
+                                    14.9089 1.13871 14.2703 1.41175C13.6317
+                                    1.6848 13.0515 2.085 12.5628 2.5895L11.5486
+                                    3.63602L10.5344 2.5895C9.54725 1.57093
+                                    8.20843 0.998697 6.81244 0.998697C5.41644
+                                    0.998697 4.07762 1.57093 3.0905
+                                    2.5895C2.10339 3.60807 1.54883 4.98956
+                                    1.54883 6.43004C1.54883 7.87052 2.10339
+                                    9.252 3.0905 10.2706L4.10471 11.3171L11.5486
+                                    18.9982L18.9924 11.3171L20.0066
+                                    10.2706C20.4956 9.76631 20.8834 9.16759
+                                    21.148 8.50862C21.4126 7.84965 21.5488
+                                    7.14334 21.5488 6.43004C21.5488 5.71674
+                                    21.4126 5.01042 21.148 4.35145C20.8834
+                                    3.69248 20.4956 3.09376 20.0066
+                                    2.5895V2.5895Z
+                                fill:
+                                  type: string
+                                  example: white
+                                stroke:
+                                  type: string
+                                  example: '#FF0000'
+                                strokeWidth:
+                                  type: string
+                                  example: '1.2'
+                                strokeLinecap:
+                                  type: string
+                                  example: round
+                                strokeLinejoin:
+                                  type: string
+                                  example: round
+                            inactive:
+                              $ref: >-
+                                #/channels/~1ms-business-account-mgmt~1new-domain/publish/message/payload/allOf/1/properties/domain/allOf/0/properties/sidebarSettings/properties/addItemTargets/properties/icon/properties/active
+                        targets:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              urlTarget:
+                                type: string
+                              target:
+                                type: string
+                              autoZIndexOff:
+                                type: boolean
+                              css:
+                                type: object
+                                properties:
+                                  position:
+                                    type: string
+                                  top:
+                                    type: string
+                                  bottom:
+                                    type: string
+                                  left:
+                                    type: string
+                                  right:
+                                    type: string
+                                  width:
+                                    type: string
+                                  margin:
+                                    type: string
+                              link:
+                                type: string
+                    attentionSeekers:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - uuid
+                          - triggers
+                          - action
+                          - authenticated
+                        properties:
+                          uuid:
+                            type: string
+                          triggers:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                                - triggerType
+                              properties:
+                                triggerType:
+                                  type: string
+                                  enum:
+                                    - PercentageScrolledTo
+                                    - TimeOnPage
+                                    - ElementVisible
+                                triggerValue:
+                                  type: number
+                                  description: >-
+                                    Number representing percentage scrolled to
+                                    or time on page
+                                triggerTarget:
+                                  type: string
+                                  description: >-
+                                    String to use in document.querySelector when
+                                    waiting for element to be visible
+                          authenticated:
+                            type: string
+                            description: >-
+                              Whether to show to logged in, not logged in, or
+                              both
+                            enum:
+                              - AuthenticatedOnly
+                              - UnauthenticatedOnly
+                              - All
+                          action:
+                            type: string
+                            enum:
+                              - SidebarShockwave
+                              - HeartShockwave
+                              - SidebarBounce
+                              - HeartWiggle
+                              - HeartColourSweep
+                          limit:
+                            type: number
+                            description: >-
+                              Maximum number of times this attention seeker
+                              should run
+                          resetAfterDays:
+                            type: number
+                            description: >-
+                              After this number of days, will start running
+                              attention seekers again until limit is reached
+                              again
+                    customCSS:
+                      type: string
+                    initialStateOpen:
+                      type: boolean
+                    featureSwitch:
+                      type: object
+                      properties:
+                        addItemExcludeUrls:
+                          type: array
+                          description: When matching origin
+                          items:
+                            type: string
+                        addItemIncludeUrls:
+                          type: array
+                          description: When present the
+                          items:
+                            type: string
+                        addItemIncludeCssSelector:
+                          type: array
+                          description: CSS selector to include
+                          items:
+                            type: string
+                        addItemExcludeCssSelector:
+                          type: array
+                          description: CSS selector to exclude
+                          items:
+                            type: string
+                    promoteUrlsTitle:
+                      type: string
+                    promoteUrls:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - url
+                        properties:
+                          url:
+                            type: string
+                    position:
+                      type: string
+                      enum:
+                        - left
+                        - right
+                    showFriendsItems:
+                      $ref: >-
+                        #/channels/~1ms-business-account-mgmt~1new-domain/publish/message/payload/allOf/1/properties/domain/allOf/0/properties/sidebarSettings/properties/showOwnItems
+                    showOwnItems:
+                      type: object
+                      required:
+                        - noResultsText
+                        - show
+                        - fetch
+                        - order
+                        - sort
+                        - position
+                      properties:
+                        noResultsText:
+                          type: string
+                        fetch:
+                          type: string
+                          enum:
+                            - all
+                            - upToOneYear
+                        order:
+                          type: string
+                          enum:
+                            - createdAt
+                            - updatedAt
+                        show:
+                          type: boolean
+                        sort:
+                          description: Sort will not affect the order when set to random
+                          type: string
+                          enum:
+                            - asc
+                            - desc
+                        position:
+                          description: The sort order of the tabs in view using js sort()
+                          type: number
+                    showOthersItems:
+                      $ref: >-
+                        #/channels/~1ms-business-account-mgmt~1new-domain/publish/message/payload/allOf/1/properties/domain/allOf/0/properties/sidebarSettings/properties/showOwnItems
+                    unauthenticated:
+                      type: object
+                      required:
+                        - nonProductPageImage
+                      properties:
+                        openerText:
+                          type: string
+                          description: >-
+                            if not passed by the user then a default text will
+                            be used
+                        openerText2:
+                          type: string
+                          description: >-
+                            if not passed by the user then a default text will
+                            be used
+                        openerText3:
+                          type: string
+                          description: >-
+                            if not passed by the user then a default text will
+                            be used
+                        nonProductPageImage:
+                          type: object
+                          required:
+                            - urlType
+                            - url
+                          properties:
+                            urlType:
+                              type: string
+                              enum:
+                                - link
+                                - image
+                            linkUrl:
+                              type: string
+                              description: >-
+                                The will be filled when the type is link, it is
+                                the URL to the product page
+                            url:
+                              type: string
+                              description: >-
+                                URL preview image on the image cache, OR, the
+                                image URL from the image uploaded
+            - type: object
+              required:
+                - _id
+                - createdBy
+                - createdAt
+                - updatedAt
+                - validated
+              properties:
+                _id:
+                  type: string
+                createdBy:
+                  type: string
+                createdAt:
+                  type: string
+                  format: date-time
+                deletedAt:
+                  type: string
+                  format: date-time
+                validated:
+                  description: Set only by the server
+                  type: boolean
+                updatedAt:
+                  type: string
+                  format: date-time
+    MsBusinessAccountMgmtAccessChanged:
+      type: object
+      required:
+        - origin
+        - owner
+        - managers
+      properties:
+        origin:
+          type: string
+        owner:
+          type: string
+        managers:
+          type: array
+          items:
+            type: string
+    MsBusinessAccountMgmtAccessGet:
+      type: object
+      required:
+        - origin
+      properties:
+        origin:
+          type: string
+    MsBusinessAccountMgmtAccount:
+      allOf:
+        - type: object
+          required:
+            - account
+            - initiator
+            - recipient
+          properties:
+            account:
+              $ref: >-
+                #/components/schemas/MsBusinessAccountMgmtDomain/allOf/1/properties/account
+            initiator:
+              $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+            recipient:
+              $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+    MsBusinessAccountMgmtC2BModel:
+      allOf:
+        - type: object
+          required:
+            - domain
+          properties:
+            domain:
+              type: string
+            email:
+              type: string
+            qtySent:
+              type: number
+              default: 0
+            optOut:
+              type: boolean
+              default: false
+    MsBusinessAccountMgmtDomain:
+      allOf:
+        - type: object
+          required:
+            - initiator
+            - recipient
+          properties:
+            initiator:
+              $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+            recipient:
+              $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        - type: object
+          required:
+            - account
+            - domain
+          properties:
+            account:
+              allOf:
+                - type: object
+                  required:
+                    - name
+                    - mainAddress
+                    - owner
+                  properties:
+                    name:
+                      type: string
+                    membership:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - dateFrom
+                          - dateTo
+                          - type
+                          - level
+                          - createdBy
+                        properties:
+                          dateFrom:
+                            type: string
+                            format: date-time
+                          dateTo:
+                            type: string
+                            format: date-time
+                          type:
+                            type: string
+                            enum:
+                              - 3pie
+                          level:
+                            description: >-
+                              The higher the number the higher the level, eg
+                              level 0 is entry where as level 3 could be gold
+                            type: number
+                            default: 0
+                          createdBy:
+                            description: The username of the actor setting this membership
+                            type: string
+                    mainAddress:
+                      type: object
+                      required:
+                        - streetNumberHouseName
+                        - addressLine1
+                        - zipPostalCode
+                        - country
+                      properties:
+                        unitNumber:
+                          type: string
+                        streetNumberHouseName:
+                          type: string
+                        addressLine1:
+                          type: string
+                        addressLine2:
+                          type: string
+                        addressLine3:
+                          type: string
+                        stateProvinceRegion:
+                          type: string
+                        zipPostalCode:
+                          type: string
+                        country:
+                          type: string
+                    owner:
+                      type: string
+                      description: A valid username
+                - type: object
+                  required:
+                    - _id
+                    - createdAt
+                    - updatedAt
+                  properties:
+                    _id:
+                      type: string
+                    createdAt:
+                      type: string
+                      format: date-time
+                    updatedAt:
+                      type: string
+                      format: date-time
+                    createdBy:
+                      type: string
+                      description: A valid username
+            domain:
+              $ref: >-
+                #/components/schemas/MsBusinessAccountMgmt3PieSettingsChanged/allOf/0
+    MsChannelChatUnreadModel:
+      type: object
+      properties:
+        toActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        channels:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              slug:
+                type: string
+    MsChannelConciergeJobCompleted:
+      type: object
+      required:
+        - channel
+        - conciergeItems
+      properties:
+        channel:
+          $ref: '#/components/schemas/MsChannelJoin/properties/channel'
+        conciergeItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/MsItemModel/allOf/0'
+    MsChannelCreated:
+      type: object
+      properties:
+        newChannel:
+          $ref: '#/components/schemas/MsChannelJoin/properties/channel'
+    MsChannelDeleted:
+      type: object
+      properties:
+        deletedChannel:
+          $ref: '#/components/schemas/MsChannelJoin/properties/channel'
+    MsChannelEventChannelsNotificationsEventDate:
+      type: object
+      required:
+        - toActor
+        - channel
+      properties:
+        toActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        channel:
+          $ref: '#/components/schemas/MsChannelJoin/properties/channel'
+    MsChannelEventChannelsNotificationsSendReminder:
+      allOf:
+        - $ref: '#/components/schemas/MsNotificationRemoteMutableModel'
+        - type: object
+          required:
+            - toActor
+            - channel
+            - notificationType
+          properties:
+            toActor:
+              $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+            channel:
+              $ref: '#/components/schemas/MsChannelJoin/properties/channel'
+            notificationType:
+              type: string
+              enum:
+                - threeHoursBefore
+                - oneDayBefore
+                - oneWeekBefore
+                - twoWeeksBefore
+    MsChannelJoin:
+      type: object
+      required:
+        - toActor
+        - fromActor
+        - channel
+      properties:
+        toActor:
+          type: object
+          required:
+            - firstName
+            - lastName
+            - username
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            username:
+              type: string
+        fromActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        channel:
+          allOf:
+            - type: object
+              required:
+                - name
+                - allCanAdd
+                - privacy
+              properties:
+                allCanAdd:
+                  type: boolean
+                  description: >-
+                    When true everyone can add, defaults to false, typical use
+                    case is a public channel
+                description:
+                  type: string
+                  description: The channel description
+                name:
+                  type: string
+                  description: The channel name, alphanumeric and hyphen only
+                privacy:
+                  type: string
+                  enum:
+                    - private
+                    - friendsOnly
+                    - public
+                    - publicAutojoin
+                  description: >
+                    Privacy determines who can and who cannot see or find the
+                    channel If auto-join is selected then user will just join
+                    without needing to be approved
+                channelType:
+                  type: string
+                  default: general
+                  enum:
+                    - general
+                    - event
+                    - researchConcierge
+                  description: >
+                    The type of channel this is, general or event. Scope to
+                    expand more types in the future, e.g. research
+                chatEnabled:
+                  type: boolean
+                shareLinkEnabled:
+                  type: boolean
+                  default: false
+                  description: >-
+                    When true the share link for this channel will be functional
+                    and loading the channel without, invited or not, will show
+                    the contents.
+                channelMeta:
+                  type: object
+                  description: >
+                    Additional data a user may add to the channel to help them
+                    in whatever way
+                  properties:
+                    budget:
+                      type: object
+                      required:
+                        - currency
+                        - value
+                      properties:
+                        currency:
+                          type: string
+                          enum:
+                            - AED
+                            - AFN
+                            - ALL
+                            - AMD
+                            - ANG
+                            - AOA
+                            - ARS
+                            - AUD
+                            - AWG
+                            - AZN
+                            - BAM
+                            - BBD
+                            - BDT
+                            - BGN
+                            - BHD
+                            - BIF
+                            - BMD
+                            - BND
+                            - BOB
+                            - BRL
+                            - BSD
+                            - BTN
+                            - BWP
+                            - BYN
+                            - BZD
+                            - CAD
+                            - CDF
+                            - CHF
+                            - CLP
+                            - CNY
+                            - COP
+                            - CRC
+                            - CUP
+                            - CVE
+                            - CZK
+                            - DJF
+                            - DKK
+                            - DOP
+                            - DZD
+                            - EGP
+                            - ERN
+                            - ETB
+                            - EUR
+                            - FJD
+                            - FKP
+                            - GBP
+                            - GEL
+                            - GHS
+                            - GIP
+                            - GMD
+                            - GNF
+                            - GTQ
+                            - GYD
+                            - HKD
+                            - HNL
+                            - HRK
+                            - HTG
+                            - HUF
+                            - IDR
+                            - ILS
+                            - INR
+                            - IQD
+                            - IRR
+                            - ISK
+                            - JMD
+                            - JOD
+                            - JPY
+                            - KES
+                            - KGS
+                            - KHR
+                            - KMF
+                            - KPW
+                            - KRW
+                            - KWD
+                            - KYD
+                            - KZT
+                            - LAK
+                            - LBP
+                            - LKR
+                            - LRD
+                            - LSL
+                            - LYD
+                            - MAD
+                            - MDL
+                            - MGA
+                            - MKD
+                            - MMK
+                            - MNT
+                            - MOP
+                            - MRU
+                            - MUR
+                            - MVR
+                            - MWK
+                            - MXN
+                            - MYR
+                            - MZN
+                            - NAD
+                            - NGN
+                            - NIO
+                            - NOK
+                            - NPR
+                            - NZD
+                            - OMR
+                            - PAB
+                            - PEN
+                            - PGK
+                            - PHP
+                            - PKR
+                            - PLN
+                            - PYG
+                            - QAR
+                            - RON
+                            - RSD
+                            - RUB
+                            - RWF
+                            - SAR
+                            - SBD
+                            - SCR
+                            - SDG
+                            - SEK
+                            - SGD
+                            - SHP
+                            - SLL
+                            - SOS
+                            - SRD
+                            - SSP
+                            - STD
+                            - SYP
+                            - SZL
+                            - THB
+                            - TJS
+                            - TMT
+                            - TND
+                            - TOP
+                            - TRY
+                            - TTD
+                            - TWD
+                            - TZS
+                            - UAH
+                            - UGX
+                            - USD
+                            - UYU
+                            - UZS
+                            - VEF
+                            - VND
+                            - VUV
+                            - WST
+                            - XAF
+                            - XCD
+                            - XOF
+                            - XPF
+                            - YER
+                            - ZAR
+                            - ZMW
+                            - ZWL
+                          description: >-
+                            Enum generated using currency codes from
+                            ms-static-api-data July 2022
+                        value:
+                          type: number
+                    requirements:
+                      type: string
+                    likes:
+                      type: string
+                    dislikes:
+                      type: string
+                    geolocationData:
+                      $ref: >-
+                        #/channels/~1ms-item~1liked/publish/message/payload/properties/item/allOf/0/properties/editable/properties/geolocationData
+            - type: object
+              required:
+                - _id
+                - createdAt
+                - owner
+                - imagePath
+                - slug
+                - updatedAt
+                - performanceValues
+              properties:
+                _id:
+                  type: string
+                  description: UUID of the channel generated at the server
+                owner:
+                  $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+                event:
+                  type: object
+                  required:
+                    - eventType
+                    - eventDate
+                  properties:
+                    eventType:
+                      type: string
+                      enum:
+                        - oneOff
+                        - weekly
+                        - monthly
+                        - yearly
+                      description: >-
+                        One off events are archived at event date, rest have a
+                        new date set according to repetition settings
+                    eventDate:
+                      type: string
+                      format: date-time
+                    repetitionSettings:
+                      type: object
+                      required:
+                        - day
+                      properties:
+                        day:
+                          type: number
+                        week:
+                          type: number
+                    eventFinished:
+                      type: boolean
+                    eventNotificationsSent:
+                      type: array
+                      items:
+                        $ref: >-
+                          #/components/schemas/MsChannelEventChannelsNotificationsSendReminder/allOf/1/properties/notificationType
+                concierge:
+                  type: object
+                  properties:
+                    active:
+                      type: object
+                      required:
+                        - settings
+                        - jobStatus
+                        - jobCreated
+                      properties:
+                        settings:
+                          type: object
+                          required:
+                            - qtyItems
+                            - conciergeType
+                            - urgency
+                          properties:
+                            qtyItems:
+                              type: number
+                            conciergeType:
+                              type: string
+                              enum:
+                                - singleItem
+                                - collection
+                                - travel
+                            urgency:
+                              type: string
+                              enum:
+                                - threeDays
+                                - oneWeek
+                                - moreThanOneWeek
+                        jobStatus:
+                          type: string
+                          enum:
+                            - awaitingConcierge
+                            - conciergeAssigned
+                            - completed
+                            - conciergeRemoved
+                        jobCreated:
+                          type: string
+                          format: date-time
+                        jobStarted:
+                          type: string
+                          format: date-time
+                        jobFinished:
+                          type: string
+                          format: date-time
+                        actor:
+                          $ref: >-
+                            #/components/schemas/MsChannelJoin/properties/toActor
+                        notifications:
+                          type: array
+                          items:
+                            type: object
+                            required:
+                              - date
+                            properties:
+                              date:
+                                type: string
+                                format: date-time
+                        categories:
+                          type: array
+                          items:
+                            type: string
+                    archive:
+                      type: array
+                      items:
+                        $ref: >-
+                          #/channels/~1ms-channel~1created/publish/message/payload/properties/newChannel/allOf/1/properties/concierge/properties/active
+                customFields:
+                  type: array
+                  items:
+                    allOf:
+                      - type: object
+                        required:
+                          - label
+                          - fieldType
+                          - unit
+                        properties:
+                          label:
+                            type: string
+                          fieldType:
+                            $ref: >-
+                              #/channels/~1ms-static-api-data~1emit-data~1channelUnits/publish/message/payload/allOf/0/items/properties/fieldType
+                          unit:
+                            type: string
+                            description: The unit will be derived from the static data API
+                          modifier:
+                            type: number
+                          options:
+                            type: array
+                            items:
+                              type: string
+                      - type: object
+                        required:
+                          - _id
+                        properties:
+                          _id:
+                            type: string
+                            description: UUID v4
+                customFieldsOrder:
+                  type: object
+                  required:
+                    - customFieldDisplay
+                    - nonCustomFields
+                  properties:
+                    customFieldDisplay:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - _id
+                          - show
+                        properties:
+                          _id:
+                            type: string
+                          show:
+                            type: boolean
+                    nonCustomFields:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - key
+                          - show
+                        properties:
+                          key:
+                            type: string
+                          show:
+                            type: boolean
+                imageHeroPath:
+                  type: string
+                  description: >-
+                    The path to the hero cover image. This will either be a user
+                    uploaded image or a placeholder image path.
+                imageHeroPathCredit:
+                  type: string
+                  description: >-
+                    Hero credit. Images from Pexels need to be credited. This is
+                    the photographer's name.
+                imagePath:
+                  type: string
+                  description: >-
+                    The path to the image. This will either be a user uploaded
+                    image or a placeholder image path.
+                imagePathCredit:
+                  type: string
+                  description: >-
+                    Image credit. Images from Pexels need to be credited. This
+                    is the photographer's name.
+                slug:
+                  type: string
+                  description: >-
+                    The channel slug is auto-genetated and is the creator's
+                    username followed by the channel's name without special
+                    characters
+                  pattern: ^[a-z\d\.]+@[a-z\d\-]+$
+                performanceValues:
+                  type: object
+                  required:
+                    - memberCount
+                  properties:
+                    memberCount:
+                      type: number
+                createdAt:
+                  type: string
+                  format: date-time
+                updatedAt:
+                  type: string
+                  format: date-time
+                archivedAt:
+                  type: string
+                  format: date-time
+    MsChannelModel:
+      type: object
+      required:
+        - channel
+      properties:
+        channel:
+          $ref: '#/components/schemas/MsChannelJoin/properties/channel'
+    MsChannelModels:
+      allOf:
+        - type: object
+          required:
+            - channels
+          properties:
+            channels:
+              type: array
+              items:
+                $ref: '#/components/schemas/MsChannelJoin/properties/channel'
+    MsChannelSubscriptionChangeModel:
+      type: object
+      required:
+        - username
+        - channels
+        - channelSlugsOwned
+      properties:
+        username:
+          type: string
+        channelSlugsOwned:
+          type: array
+          items:
+            type: string
+        channels:
+          type: array
+          items:
+            type: object
+            required:
+              - slug
+              - subscriptionStatus
+              - privacy
+            properties:
+              privacy:
+                type: string
+                enum:
+                  - private
+                  - friendsOnly
+                  - public
+                  - publicAutojoin
+              slug:
+                type: string
+              subscriptionStatus:
+                type: string
+                enum:
+                  - ConciergeJobAccepted
+                  - ConciergeJobCancelled
+                  - ConciergeJobCompleted
+                  - ConciergeJobRemoved
+                  - Invited
+                  - InviteCancelled
+                  - InviteAccepted
+                  - InviteRejected
+                  - JoinRequestSent
+                  - JoinRequestCancelled
+                  - JoinRequestAccepted
+                  - JoinRequestRejected
+                  - RemovedByChannel
+                  - SelfRemoval
+              archivedAt:
+                type: string
+                format: date-time
+              canAdd:
+                type: boolean
+              canManage:
+                type: boolean
+    MsChannelUpdated:
+      type: object
+      properties:
+        channelOld:
+          $ref: '#/components/schemas/MsChannelJoin/properties/channel'
+        channelNew:
+          $ref: '#/components/schemas/MsChannelJoin/properties/channel'
+    MsChatMentionOnComment:
+      type: object
+      required:
+        - toActor
+        - fromActor
+        - channelSlug
+        - messageId
+      properties:
+        toActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        fromActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        channelSlug:
+          type: string
+        messageId:
+          type: string
+    MsChatMessageModel:
+      allOf:
+        - allOf:
+            - type: object
+              required:
+                - type
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - channel
+            - type: object
+              required:
+                - _id
+                - relationId
+                - author
+                - createdAt
+                - msg
+              properties:
+                _id:
+                  type: string
+                  description: Message's ID
+                relationId:
+                  type: string
+                  description: For example, the channel id the chat relates to
+                author:
+                  $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+                createdAt:
+                  type: string
+                  format: date-time
+                msg:
+                  type: string
+    MsContentCategorisationItemContentCategorised:
+      allOf:
+        - type: object
+          required:
+            - success
+            - categories
+            - uniqueItemName
+          properties:
+            success:
+              type: boolean
+            categories:
+              type: array
+              items:
+                type: object
+                required:
+                  - contentType
+                  - categoryType
+                  - confidence
+                  - name
+                properties:
+                  contentType:
+                    type: string
+                    description: >-
+                      May expand as required in future, e.g. UrlMetaDescription,
+                      if NLP's advance or we train our own
+                    enum:
+                      - image
+                  categoryType:
+                    type: string
+                    enum:
+                      - logo
+                      - label
+                  confidence:
+                    type: number
+                  name:
+                    type: string
+                  relatedCategories:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - name
+                      properties:
+                        name:
+                          type: string
+                  instances:
+                    type: object
+                    properties:
+                      amazon:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - BoundingBox
+                            - Confidence
+                          properties:
+                            BoundingBox:
+                              type: object
+                              required:
+                                - Height
+                                - Left
+                                - Top
+                                - Width
+                              properties:
+                                Height:
+                                  type: number
+                                Left:
+                                  type: number
+                                Top:
+                                  type: number
+                                Width:
+                                  type: number
+                            Confidence:
+                              type: number
+                      google:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - vertices
+                          properties:
+                            vertices:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                  - x
+                                  - 'y'
+                                properties:
+                                  x:
+                                    type: number
+                                  'y':
+                                    type: number
+            uniqueItemName:
+              type: string
+    MsContentCategorisationItemContentCategorisedOfSameImage:
+      allOf:
+        - type: object
+          required:
+            - success
+            - categories
+            - uniqueItemNames
+            - urlImageHref
+          properties:
+            success:
+              type: boolean
+            categories:
+              $ref: >-
+                #/components/schemas/MsContentCategorisationItemContentCategorised/allOf/0/properties/categories
+            uniqueItemNames:
+              type: array
+              items:
+                type: string
+            urlImageHref:
+              type: string
+    MsContentCategorisationItemRecategoriseItems:
+      type: object
+      required:
+        - logosOnly
+      properties:
+        logosOnly:
+          type: boolean
+    MsContentCheckFlaggedContent:
+      allOf:
+        - type: object
+          properties:
+            _id:
+              type: string
+            contentType:
+              $ref: '#/components/schemas/MsImageWriteNewModel/properties/imageType'
+            contentId:
+              type: string
+            objectPath:
+              type: string
+              description: >-
+                When a subpart of an object needs content checking, e.g. a
+                comment within an item, the object path used in conjunction with
+                the content id will be enough to find the exact data to be
+                checked over
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            issues:
+              type: object
+              properties:
+                url:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      objectPath:
+                        type: string
+                      threatType:
+                        type: string
+                      originalValue:
+                        type: string
+                image:
+                  type: object
+                  required:
+                    - labels
+                  properties:
+                    relationPath:
+                      type: string
+                    labels:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - Confidence
+                          - Name
+                          - ParentName
+                        properties:
+                          Confidence:
+                            type: number
+                          Name:
+                            type: string
+                          ParentName:
+                            type: string
+                text:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - attributes
+                      - objectPath
+                    properties:
+                      attributes:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - attribute
+                            - probability
+                          properties:
+                            attribute:
+                              type: string
+                            probability:
+                              type: number
+                      objectPath:
+                        type: string
+            moderation:
+              type: object
+              required:
+                - waiting
+                - banned
+                - labels
+              properties:
+                waiting:
+                  type: boolean
+                banned:
+                  type: boolean
+                labels:
+                  type: array
+                  items:
+                    type: string
+        - type: object
+          required:
+            - contentCheckId
+          properties:
+            contentCheckId:
+              type: string
+    MsContentCheckImageRekognitionLabels:
+      type: object
+      properties:
+        labels:
+          type: string
+          description: >-
+            All labels as described at
+            https://docs.aws.amazon.com/rekognition/latest/dg/moderation.html
+          enum:
+            - Nudity
+            - Graphic Male Nudity
+            - Graphic Female Nudity
+            - Sexual Activity
+            - Illustrated Explicit Nudity
+            - Adult Toys
+            - Female Swimwear Or Underwear
+            - Male Swimwear Or Underwear
+            - Partial Nudity
+            - Barechested Male
+            - Revealing Clothes
+            - Sexual Situations
+            - Graphic Violence Or Gore
+            - Physical Violence
+            - Weapon Violence
+            - Weapons
+            - Self Injury
+            - Emaciated Bodies
+            - Corpses
+            - Hanging
+            - Air Crash
+            - Explosions And Blasts
+            - Middle Finger
+            - Drug Products
+            - Drug Use
+            - Pills
+            - Drug Paraphernalia
+            - Tobacco Products
+            - Smoking
+            - Drinking
+            - Alcoholic Beverages
+            - Gambling
+            - Nazi Party
+            - White Supremacy
+            - Extremist
+        allowedSoftLabels:
+          type: string
+          description: Labels considered soft enough to automatically allow through
+          enum:
+            - Female Swimwear Or Underwear
+            - Male Swimwear Or Underwear
+            - Partial Nudity
+            - Barechested Male
+            - Revealing Clothes
+            - Sexual Situations
+            - Weapons
+            - Middle Finger
+            - Tobacco Products
+            - Smoking
+            - Drinking
+            - Alcoholic Beverages
+            - Gambling
+    MsHashtagTagModel:
+      allOf:
+        - allOf:
+            - $ref: '#/components/schemas/MsHashtagTagUseCountChangeModel/allOf/0'
+            - type: object
+              required:
+                - _id
+                - useCount
+                - createdAt
+                - updatedAt
+              properties:
+                _id:
+                  type: string
+                useCount:
+                  type: number
+                  default: 0
+                createdAt:
+                  type: string
+                  format: date-time
+                updatedAt:
+                  type: string
+                  format: date-time
+    MsHashtagTagUseCountChangeModel:
+      allOf:
+        - type: object
+          required:
+            - source
+            - tag
+          properties:
+            source:
+              type: string
+              enum:
+                - item
+            tag:
+              type: string
+    MsImageWriteNewModel:
+      type: object
+      required:
+        - imagePath
+        - objectId
+        - imageType
+      properties:
+        imagePath:
+          type: string
+        objectId:
+          type: string
+        relationPath:
+          type: string
+        imageType:
+          type: string
+          enum:
+            - item
+            - itemComment
+            - itemCommentReply
+            - itemImage
+            - url-thumbnail
+            - channel
+            - channelImage
+            - channelHero
+            - userData
+            - profilePic
+            - chatMessage
+            - defaultDomainImage
+    MsItemCategoriseItemsOfSameImage:
+      type: object
+      required:
+        - urlImageHref
+        - uniqueItemNames
+      properties:
+        urlImageHref:
+          type: string
+        uniqueItemNames:
+          type: array
+          items:
+            type: string
+    MsItemCommentC2BIterateQueueModel:
+      type: object
+      required:
+        - id
+        - email
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+    MsItemCommentC2BModel:
+      type: object
+      required:
+        - commentObj
+      properties:
+        commentObj:
+          $ref: '#/components/schemas/MsItemCommentC2BSendEmailModel/allOf/0'
+    MsItemCommentC2BSendEmailModel:
+      allOf:
+        - type: object
+          required:
+            - url
+            - commentType
+            - comment
+            - uniqueItemName
+            - actor
+          properties:
+            url:
+              type: string
+            commentType:
+              type: string
+              enum:
+                - comment
+                - reply
+            comment:
+              type: string
+            uniqueItemName:
+              type: string
+            domain:
+              type: string
+            actor:
+              $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+            commentDate:
+              type: string
+              format: date-time
+        - type: object
+          required:
+            - businessEmail
+          properties:
+            businessEmail:
+              type: string
+    MsItemCommentModel:
+      allOf:
+        - $ref: '#/components/schemas/MsItemModel/allOf/0'
+        - type: object
+          properties:
+            commentUpsertedId:
+              type: string
+    MsItemCommentReplyModel:
+      allOf:
+        - $ref: '#/components/schemas/MsItemCommentModel'
+        - type: object
+          properties:
+            commentReplyUpsertedId:
+              type: string
+    MsItemConciergeItemPosted:
+      type: object
+      required:
+        - channel
+        - item
+      properties:
+        channel:
+          $ref: '#/components/schemas/MsChannelJoin/properties/channel'
+        item:
+          $ref: '#/components/schemas/MsItemModel/allOf/0'
+    MsItemItemAndActor:
+      type: object
+      required:
+        - toActors
+        - item
+        - fromActor
+      properties:
+        toActors:
+          type: array
+          items:
+            $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        fromActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        item:
+          $ref: '#/components/schemas/MsItemModel/allOf/0'
+    MsItemItemCacheImageDelete:
+      type: object
+      required:
+        - filePath
+      properties:
+        filePath:
+          type: string
+    MsItemItemReport:
+      allOf:
+        - type: object
+          properties:
+            item:
+              $ref: '#/components/schemas/MsItemModel/allOf/0'
+            unAuthenticatedReporter:
+              type: object
+              properties:
+                email:
+                  type: string
+                fullName:
+                  type: string
+            reporterComment:
+              type: string
+              pattern: >-
+                ^[A-Za-zÀ-ž\d-_\s\.\,\?\!]{1,}(?:[A-Za-zÀ-ž\d-_\s\.\,\?\!]{1,}\s){0,}[A-Za-zÀ-ž\s\d-_\.\,\?\!]{1,}$/mi
+    MsItemManagedByNotItemOwner:
+      type: object
+      required:
+        - item
+        - managedBy
+      properties:
+        item:
+          $ref: '#/components/schemas/MsItemModel/allOf/0'
+        managedBy:
+          type: object
+          required:
+            - actor
+            - managerType
+          properties:
+            actor:
+              $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+            managerType:
+              type: string
+              description: >
+                Enum value corresponding to the user's permission state to
+                manage, i.e. edit or delete. Includes 'forbidden' to indicate
+                user is not allowed to manage.
+              enum:
+                - itemOwner
+                - channelOwner
+                - channelManager
+                - forbidden
+    MsItemMentionOnComment:
+      type: object
+      required:
+        - toActor
+        - fromActor
+        - item
+        - commentId
+      properties:
+        toActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        fromActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        item:
+          $ref: '#/components/schemas/MsItemModel/allOf/0'
+        commentId:
+          type: string
+        commentReplyId:
+          type: string
+    MsItemModel:
+      allOf:
+        - allOf:
+            - type: object
+              required:
+                - createdAt
+                - editable
+                - uniqueItemName
+                - updatedAt
+              properties:
+                createdAt:
+                  type: string
+                  format: date-time
+                editable:
+                  type: object
+                  required:
+                    - text
+                  properties:
+                    channel:
+                      type: object
+                      required:
+                        - slug
+                        - name
+                      properties:
+                        slug:
+                          type: string
+                          description: The slug of the channel
+                        name:
+                          type: string
+                          description: The name of the channel
+                        isDefault:
+                          type: boolean
+                          description: Is this channel a default channel
+                        channelType:
+                          $ref: >-
+                            #/channels/~1ms-channel~1created/publish/message/payload/properties/newChannel/allOf/0/properties/channelType
+                        customFields:
+                          type: array
+                          items:
+                            allOf:
+                              - $ref: >-
+                                  #/channels/~1ms-channel~1created/publish/message/payload/properties/newChannel/allOf/1/properties/customFields/items
+                              - type: object
+                                required:
+                                  - value
+                                properties:
+                                  value:
+                                    type: string
+                    text:
+                      type: string
+                      description: >-
+                        The text of the item, this includes URL and user added
+                        personnel text
+                    geolocationData:
+                      type: object
+                      required:
+                        - position
+                      properties:
+                        position:
+                          type: object
+                          required:
+                            - type
+                            - coordinates
+                          properties:
+                            type:
+                              type: string
+                              description: >-
+                                Only 'Point' supported for now. Other types are:
+                                MultiPoint, LineString, MultiLineString,
+                                Polygon, MultiPolygon GeometryCollection
+                            coordinates:
+                              type: array
+                              description: >-
+                                In a GeoJSON object, list the longitude first
+                                and the latitude second -
+                                https://docs.mongodb.com/manual/reference/geojson/
+                              minItems: 2
+                              maxItems: 2
+                              items:
+                                type: number
+                        keywordsAddress:
+                          description: >-
+                            A compacted string of all the parts of the address
+                            which a user may be interested in searching against,
+                            including the business name if there is one
+                          type: string
+                        formattedAddress:
+                          description: The formatted address as displayed to the user
+                          type: string
+                        placeId:
+                          description: >-
+                            ID as provided by Google, used when creating the out
+                            link to google maps
+                          type: string
+                uniqueItemName:
+                  type: string
+                  description: >
+                    A url safe name that is unique to this item, eg "dog-200"
+                    would be the 201th dog added to the system. By default this
+                    is a UUID
+                updatedAt:
+                  type: string
+                  format: date-time
+                urlCache:
+                  description: >
+                    The URL is extracted from the user text sent. The fetch of
+                    the preview is then completely autonomous to prevent a
+                    hacker from injecting false content, eg submitting a
+                    recognisable url image but a dangerous url. As such, the URL
+                    data itself is never editable directly by the user which in
+                    addition gives the API more control on what is and what is
+                    not displayed.
+                  allOf:
+                    - $ref: >-
+                        #/components/schemas/MsUrlPreviewScraperFinishedModel/properties/data
+                    - type: object
+                      properties:
+                        fetchStatus:
+                          type: string
+                          enum:
+                            - inProgress
+                            - failed
+                            - success
+                        failedScrapeRetryStatus:
+                          type: string
+                          description: >-
+                            Enum to ensure we don't continuously retry the same
+                            failed url forever
+                          enum:
+                            - twentyMinutes
+                            - threeHours
+                            - oneDay
+                            - oneWeek
+                            - oneMonth
+            - type: object
+              required:
+                - actor
+                - comments
+                - getgot
+                - likes
+                - pins
+                - performanceValues
+              properties:
+                countInGroup:
+                  type: number
+                anonymous:
+                  type: boolean
+                actor:
+                  $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+                comments:
+                  type: array
+                  items:
+                    allOf:
+                      - type: object
+                        required:
+                          - comment
+                          - type
+                        properties:
+                          comment:
+                            type: string
+                          type:
+                            description: >
+                              general means comments on the general platform c2b
+                              = customer to business comment b2c = business to
+                              customer comment
+                            type: string
+                            enum:
+                              - general
+                              - c2b
+                              - b2c
+                      - type: object
+                        required:
+                          - actor
+                          - createdAt
+                          - likes
+                          - updatedAt
+                        properties:
+                          actor:
+                            $ref: >-
+                              #/components/schemas/MsChannelJoin/properties/toActor
+                          comment:
+                            type: string
+                          createdAt:
+                            type: string
+                            format: date-time
+                          deletedAt:
+                            type: string
+                            format: date-time
+                          _id:
+                            type: string
+                          likes:
+                            type: array
+                            items:
+                              $ref: >-
+                                #/channels/~1ms-item~1liked/publish/message/payload/properties/item/allOf/1/properties/likes/items
+                          updatedAt:
+                            type: string
+                            format: date-time
+                          moderation:
+                            $ref: >-
+                              #/channels/~1ms-item~1liked/publish/message/payload/properties/item/allOf/1/properties/moderation
+                          replies:
+                            type: array
+                            items:
+                              allOf:
+                                - $ref: >-
+                                    #/channels/~1ms-item~1liked/publish/message/payload/properties/item/allOf/1/properties/comments/items/allOf/0
+                                - type: object
+                                  required:
+                                    - actor
+                                    - createdAt
+                                    - likes
+                                    - updatedAt
+                                  properties:
+                                    actor:
+                                      $ref: >-
+                                        #/components/schemas/MsChannelJoin/properties/toActor
+                                    createdAt:
+                                      type: string
+                                      format: date-time
+                                    deletedAt:
+                                      type: string
+                                      format: date-time
+                                    _id:
+                                      type: string
+                                    likes:
+                                      type: array
+                                      items:
+                                        $ref: >-
+                                          #/channels/~1ms-item~1liked/publish/message/payload/properties/item/allOf/1/properties/likes/items
+                                    updatedAt:
+                                      type: string
+                                      format: date-time
+                                    moderation:
+                                      $ref: >-
+                                        #/channels/~1ms-item~1liked/publish/message/payload/properties/item/allOf/1/properties/moderation
+                deletedAt:
+                  type: string
+                  format: date-time
+                getgot:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - actor
+                      - forActor
+                      - createdAt
+                      - latestStage
+                      - private
+                      - stages
+                      - updatedAt
+                    properties:
+                      _id:
+                        type: string
+                      actor:
+                        $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+                      forActor:
+                        $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+                      createdAt:
+                        type: string
+                        format: date-time
+                      private:
+                        type: boolean
+                      latestStage:
+                        type: string
+                        enum:
+                          - stageGet
+                          - stageGot
+                      stages:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                            - name
+                            - date
+                          properties:
+                            name:
+                              $ref: >-
+                                #/channels/~1ms-item~1liked/publish/message/payload/properties/item/allOf/1/properties/getgot/items/properties/latestStage
+                            date:
+                              type: string
+                              format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+                hashTags:
+                  type: array
+                  items:
+                    type: string
+                likes:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - actor
+                      - createdAt
+                      - like
+                      - toggleCount
+                      - updatedAt
+                    properties:
+                      actor:
+                        $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+                      createdAt:
+                        type: string
+                        format: date-time
+                      like:
+                        type: boolean
+                      toggleCount:
+                        type: number
+                      updatedAt:
+                        type: string
+                        format: date-time
+                moderation:
+                  type: object
+                  required:
+                    - waiting
+                    - banned
+                    - labels
+                  properties:
+                    waiting:
+                      type: boolean
+                    banned:
+                      type: boolean
+                    labels:
+                      type: array
+                      items:
+                        type: string
+                inChannelWeight:
+                  type: number
+                pins:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - actor
+                      - createdAt
+                      - pin
+                      - toggleCount
+                      - updatedAt
+                    properties:
+                      actor:
+                        $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+                      createdAt:
+                        type: string
+                        format: date-time
+                      pin:
+                        type: boolean
+                      toggleCount:
+                        type: number
+                      updatedAt:
+                        type: string
+                        format: date-time
+                userPhotos:
+                  type: array
+                  description: User uploaded photos of an item
+                  items:
+                    type: object
+                    required:
+                      - filePath
+                    properties:
+                      filePath:
+                        type: string
+                        description: File path to the image server
+                categorisation:
+                  type: object
+                  required:
+                    - createdAt
+                    - updatedAt
+                    - state
+                  properties:
+                    createdAt:
+                      type: string
+                      format: date-time
+                    updatedAt:
+                      type: string
+                      format: date-time
+                    state:
+                      type: string
+                      description: >
+                        Enum to speed up query so we are not analysing array of
+                        objects all the time to figure out failures. If state is
+                        failed we attempt to categorise the image a second time
+                        after 1 month. Success indicates has categories.
+                        SuccessGrouped has categories and is grouped.  I.e. This
+                        is the final state of this sub document.
+                      enum:
+                        - failed
+                        - failedSecond
+                        - success
+                        - successGrouped
+                    contentCategories:
+                      $ref: >-
+                        #/components/schemas/MsContentCategorisationItemContentCategorised/allOf/0/properties/categories
+                    categoryGroupings:
+                      type: object
+                      required:
+                        - createdAt
+                        - updatedAt
+                        - main
+                        - all
+                      properties:
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        main:
+                          type: object
+                          required:
+                            - name
+                            - confidence
+                          properties:
+                            name:
+                              type: string
+                            confidence:
+                              type: number
+                            rankVal:
+                              type: number
+                              description: >
+                                rankVal = confidence * updatedAt timestamp *
+                                multiplier   multiplier = (1+(1-(1/(P+1))))   P
+                                = popularityOverXTime, as found in
+                                performanceValues
+                        all:
+                          type: array
+                          items:
+                            $ref: >-
+                              #/channels/~1ms-item~1liked/publish/message/payload/properties/item/allOf/1/properties/categorisation/properties/categoryGroupings/properties/main
+                performanceValues:
+                  type: object
+                  required:
+                    - popularityOverXTime
+                    - likes
+                    - pins
+                    - commentsAndReplies
+                    - commentsAndRepliesLikes
+                  properties:
+                    popularityOverXTime:
+                      description: >-
+                        Number of times this URL has been posted, including this
+                        post, over the defined time period
+                      type: number
+                    likes:
+                      type: number
+                    pins:
+                      type: number
+                    commentsAndReplies:
+                      type: number
+                    commentsAndRepliesLikes:
+                      type: number
+                reminder:
+                  type: object
+                  required:
+                    - passed
+                  properties:
+                    outstanding:
+                      type: object
+                      required:
+                        - date
+                        - reminderType
+                      properties:
+                        date:
+                          type: string
+                          format: date-time
+                        reminderType:
+                          type: string
+                          enum:
+                            - oneWeek
+                            - oneMonth
+                            - threeMonths
+                            - customDate
+                    passed:
+                      type: array
+                      items:
+                        $ref: >-
+                          #/channels/~1ms-item~1liked/publish/message/payload/properties/item/allOf/1/properties/reminder/properties/outstanding
+    MsItemModels:
+      allOf:
+        - type: object
+          required:
+            - items
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/MsItemModel/allOf/0'
+    MsItemShoppingListCount:
+      type: object
+      properties:
+        username:
+          type: string
+        count:
+          type: number
+    MsNotificationAggregatorCreate:
+      type: object
+      required:
+        - emailFrequency
+        - username
+      properties:
+        emailFrequency:
+          type: string
+          enum:
+            - instant
+            - daily
+            - twiceAWeek
+            - weekly
+          default: twiceAWeek
+        username:
+          type: string
+        days:
+          $ref: '#/components/schemas/MsSchedulerDaysToRun'
+    MsNotificationEmailAccountDeletionTriggered:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+    MsNotificationEmailConfirmEmail:
+      type: object
+      properties:
+        to:
+          type: string
+        hash:
+          type: string
+    MsNotificationEmailHttpException:
+      type: object
+      required:
+        - service
+        - err
+        - stack
+      properties:
+        service:
+          type: string
+        err:
+          type: string
+        stack:
+          type: string
+    MsNotificationEmailPasswordReset:
+      type: object
+      required:
+        - to
+        - hash
+        - fromOrigin
+      properties:
+        to:
+          type: string
+        hash:
+          type: string
+        fromOrigin:
+          type: string
+          enum:
+            - 3pieAdmin
+            - UserApp
+    MsNotificationEmailPreleaseCode:
+      type: object
+      required:
+        - to
+        - code
+      properties:
+        to:
+          type: string
+        code:
+          type: string
+    MsNotificationEmailRabbitMqError:
+      type: object
+      required:
+        - service
+        - operationId
+        - stack
+      properties:
+        service:
+          type: string
+        operationId:
+          type: string
+        stack:
+          type: string
+    MsNotificationEmailSystemEmail:
+      type: object
+      required:
+        - jsonString
+      properties:
+        jsonString:
+          type: string
+    MsNotificationEmailWelcome:
+      type: object
+      properties:
+        to:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+    MsNotificationNotificationCreated:
+      type: object
+      required:
+        - notification
+        - type
+      properties:
+        notification:
+          type: object
+          required:
+            - createdAt
+            - updatedAt
+            - type
+            - initiator
+            - recipient
+            - interactionStates
+          properties:
+            _id:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            type:
+              description: The type of the notification
+              type: string
+              enum:
+                - authConnectionRequestAccepted
+                - authConnectionRequestIncoming
+                - b2cMessage
+                - channelEventDate
+                - channelEventNotification
+                - channelInviteAccepted
+                - channelInvited
+                - channelJoinAccepted
+                - channelJoinPublic
+                - channelJoinRequested
+                - channelUnreadChat
+                - chatChannelMention
+                - conciergeJobAlarmJobUnassigned
+                - conciergeJobAlarmJobIncomplete
+                - conciergeJobAssignedOwner
+                - conciergeJobAssignedConcierge
+                - conciergeJobCreated
+                - conciergeJobFinishedConcierge
+                - conciergeJobFinishedOwner
+                - conciergeJobItemPosted
+                - itemCommentMention
+                - itemComment
+                - itemCommentLike
+                - itemCommentOnComment
+                - itemCommentReplied
+                - itemCommentReplyLiked
+                - itemDeletedByOther
+                - itemEditedByOther
+                - itemLike
+                - itemReminder
+            initiator:
+              type: object
+              required:
+                - username
+              properties:
+                username:
+                  type: string
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+            recipient:
+              $ref: >-
+                #/channels/~1ms-notification~1notification~1created/publish/message/payload/properties/notification/properties/initiator
+            payload:
+              type: object
+              required:
+                - variables
+              properties:
+                variables:
+                  description: Variable data such as identifiers eg item unique name
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - key
+                      - value
+                    properties:
+                      key:
+                        type: string
+                        enum:
+                          - additionalText
+                          - businessName
+                          - channelEventDate
+                          - channelEventNotification
+                          - channelEventType
+                          - channelName
+                          - channelNameSlug
+                          - channelSlug
+                          - channelType
+                          - commentId
+                          - commentReplyId
+                          - itemInteractionType
+                          - itemManagerType
+                          - itemUrl
+                          - itemUniqueName
+                          - messageId
+                      value:
+                        type: string
+            interactionStates:
+              type: array
+              description: The last item in the array of states will always be the newest
+              items:
+                type: object
+                required:
+                  - date
+                  - state
+                properties:
+                  date:
+                    description: Timestamp of the current state of the notification
+                    type: string
+                    format: date-time
+                  state:
+                    description: Notification state enum
+                    type: string
+                    enum:
+                      - unseen
+                      - seen
+                      - interacted
+        type:
+          type: string
+          description: >-
+            The type of notification, currenly only direct to a single user,
+            later may include broadcast
+          enum:
+            - direct
+    MsNotificationRemoteMutableModel:
+      type: object
+      required:
+        - remoteMutable
+      properties:
+        remoteMutable:
+          type: object
+          required:
+            - email
+          properties:
+            email:
+              type: boolean
+    MsRolesPermissionsPermissions:
+      type: object
+      required:
+        - fromService
+        - permissions
+      properties:
+        fromService:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+    MsRolesPermissionsRequest:
+      type: object
+      properties:
+        fromService:
+          type: string
+    MsRolesPermissionsRole:
+      type: object
+      required:
+        - roleName
+        - permissions
+      properties:
+        roleName:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+    MsRolesPermissionsRoles:
+      type: array
+      items:
+        $ref: '#/components/schemas/MsRolesPermissionsRole'
+    MsSchedulerDaysToRun:
+      type: object
+      required:
+        - day1
+        - day2
+      properties:
+        day1:
+          type: number
+        day2:
+          type: number
+    MsSchedulerGeneral:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+    MsSchedulerNotificationAggregator:
+      type: object
+      required:
+        - send
+      properties:
+        send:
+          type: boolean
+        days:
+          $ref: '#/components/schemas/MsSchedulerDaysToRun'
+    MsServerSideRendererGetAllRoutesToCache:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+    MsServerSideRendererNewRouteToCache:
+      type: object
+      required:
+        - path
+        - fromService
+      properties:
+        path:
+          type: string
+        fromService:
+          type: string
+    MsStaticApiDataChannelUnitsModels:
+      allOf:
+        - type: array
+          items:
+            type: object
+            required:
+              - fieldType
+              - values
+            properties:
+              fieldType:
+                type: string
+                enum:
+                  - distance
+                  - speed
+                  - area
+                  - volume
+                  - weight
+                  - power
+                  - pressure
+                  - electrical
+                  - temperature
+                  - compass
+                  - checklist
+                  - date
+                  - price
+                  - rating
+                  - custom
+                  - customSelect
+              values:
+                type: array
+                items:
+                  allOf:
+                    - type: object
+                      required:
+                        - label
+                        - value
+                        - key
+                      properties:
+                        label:
+                          type: string
+                        value:
+                          type: string
+                        key:
+                          type: string
+                          description: For use in translations etc.
+                        dataType:
+                          type: string
+                          enum:
+                            - string
+                            - number
+                            - date
+                    - type: object
+                      required:
+                        - measurementSystem
+                      properties:
+                        measurementSystem:
+                          type: string
+                          enum:
+                            - metric
+                            - imperial
+                            - na
+    MsStaticApiDataContentCategoryGroupingsModel:
+      type: object
+      required:
+        - groupings
+      properties:
+        groupings:
+          type: array
+          items:
+            type: object
+            required:
+              - groupName
+              - labels
+            properties:
+              groupName:
+                type: string
+                description: >
+                  Note - these enums as typed are used as both the keys for the
+                  content category groupings file and carried through to  the
+                  front end and are used in translation files. A change here
+                  needs to be carried through.
+                enum:
+                  - __uncategorised__
+                  - appliances
+                  - art
+                  - baby
+                  - books
+                  - camera
+                  - christmas
+                  - cleaning
+                  - clothingAndAccessories
+                  - computer
+                  - diyAndTools
+                  - electronics
+                  - foodAndDrink
+                  - gaming
+                  - healthAndPersonalCare
+                  - hobbies
+                  - houseAndFurniture
+                  - jewelry
+                  - kitchen
+                  - lighting
+                  - luggage
+                  - music
+                  - nature
+                  - officeAndStationary
+                  - perfumeAndCosmetic
+                  - pet
+                  - plantsAndGardening
+                  - propertyAndRealEstate
+                  - sportsAndOutdoors
+                  - scienceAndTechnology
+                  - toys
+                  - travelAndLeisure
+                  - vehicles
+                  - wedding
+              labels:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - name
+                    - type
+                  properties:
+                    name:
+                      type: string
+                    type:
+                      type: string
+                      enum:
+                        - label
+                        - logo
+    MsStaticApiDataContentCategoryLabelsModel:
+      allOf:
+        - type: array
+          description: Just a flat array of strings of all category
+          items:
+            type: string
+    MsStaticApiDataRequestDataModel:
+      type: object
+      properties:
+        requesting:
+          type: string
+          enum:
+            - channelUnits
+            - contentCategoryGroupings
+            - contentCategoryLabels
+    MsStatsCreate:
+      allOf:
+        - type: object
+          properties:
+            userAgent:
+              type: string
+            userIp:
+              type: string
+        - type: object
+          required:
+            - source
+          properties:
+            source:
+              type: string
+              description: >
+                The source is where the event was triggered from, either a
+                service or frontend
+              enum:
+                - extChrItemAdd
+                - extFfItemAdd
+                - extSafItemAdd
+                - itemClickout
+                - itemAdd
+                - itemReAdd
+                - itemDetailView
+                - itemLineView
+                - itemCommentCreate
+                - itemCommentEdit
+                - itemLike
+                - itemUnLike
+                - itemPinned
+                - itemUnpinned
+                - pinnedItemLineView
+                - 3pSBClose
+                - 3pSBLoad
+                - 3pSBOpen
+                - 3pSBItemMyClick
+                - 3pSBItemFriendClick
+                - 3pSBItemOtherClick
+                - 3pSBItemAdd
+                - 3pSBItemReAdd
+                - 3pSBWishIconClick
+                - 3pSBWhatIsLiffery
+                - b2cMessageView
+                - b2cMessageClickout
+                - b2cMessageNotInterested
+            secondarySource:
+              type: string
+              description: >
+                To further specify where a stat was triggered from. On release
+                only used on Sidebar to indicate whether action was  triggered
+                on product page. Future release may expand to include others,
+                e.g. maybe Dashboard/Channel/Profile so we  can internally dig
+                down into where interactions happen most.
+              enum:
+                - 3pSBProductPage
+            url_from:
+              description: The url the action was derived from, if available
+              type: string
+            url:
+              description: The url this stat relates to, eg the item url
+              type: string
+            id_object:
+              description: The object id this related to, eg item id or account id
+              type: string
+            id_acting:
+              description: The id relating to the actor of the stat
+              type: string
+            id_acting_secondary:
+              description: >-
+                The secondary acting id, eg the id of the person an item was
+                clone from
+              type: string
+            words:
+              description: >-
+                Optional additional words persisted against the stat, eg a
+                comment or a title
+              type: string
+            words_weight:
+              description: >-
+                The overall weighting of the words, eg the comment or the
+                description of the item
+              type: number
+            channel_type:
+              description: >-
+                The privacy of the channel where gen is general, pri is private,
+                pub is public
+              type: string
+              enum:
+                - gen
+                - pri
+                - pub
+            channel_mem_count:
+              description: The number of channel members
+              type: number
+            channel_item_count:
+              description: The number of channel items
+              type: number
+            userClient:
+              type: object
+              properties:
+                sH:
+                  description: The clients screen height
+                  type: string
+                sW:
+                  description: The clients screen width
+                  type: string
+                wH:
+                  description: The clients window height
+                  type: string
+                wW:
+                  description: The clients window width
+                  type: string
+    MsSupportDataAggregatorMadebyNewItem:
+      type: object
+      required:
+        - batchName
+        - fromUrl
+        - platform
+        - importerActor
+        - data
+        - domain
+      properties:
+        batchName:
+          type: string
+        fromUrl:
+          type: string
+        platform:
+          type: string
+          enum:
+            - shopify
+            - woocommerce
+        importerActor:
+          $ref: '#/components/schemas/MsChannelJoin/properties/toActor'
+        data:
+          type: object
+        domain:
+          type: string
+    MsUrlPreviewScraperFinishedModel:
+      type: object
+      required:
+        - success
+        - type
+      properties:
+        data:
+          type: object
+          required:
+            - url
+          properties:
+            url:
+              type: string
+            meta:
+              type: object
+              required:
+                - title
+              properties:
+                availability:
+                  type: string
+                brand:
+                  type: string
+                description:
+                  type: string
+                currency:
+                  type: string
+                canonical:
+                  type: string
+                keywords:
+                  type: array
+                  items:
+                    type: string
+                price:
+                  type: string
+                site:
+                  type: string
+                title:
+                  type: string
+                titleBreakWords:
+                  type: string
+                  description: >
+                    The title but with any camelCase or non-standard word_breaks
+                    turned into spaces for easy searching against. i.e.
+                    Searching 'Sushi' returns 'Lisbon FunSushiBar' or 'Escape
+                    Dungeons' returns 'Escape Room @york.dungeons.minster'  
+            image:
+              type: object
+              properties:
+                height:
+                  type: number
+                width:
+                  type: number
+                format:
+                  type: string
+                href:
+                  type: string
+        success:
+          type: boolean
+        type:
+          type: string
+          enum:
+            - item
+    MsVersionControlRecordAppVersionUsed:
+      type: object
+      required:
+        - username
+        - appType
+        - version
+      properties:
+        username:
+          type: string
+        appType:
+          type: string
+          description: The app types supported on Liffery
+          enum:
+            - android
+            - apple
+        version:
+          type: string
+    MsVersionControlUpdateLatestAppVersions:
+      type: object
+      description: >-
+        Optional payload to specify a single app type to update (i.e. to use via
+        the non cron route), leave empty to update all app types
+      properties:
+        appType:
+          $ref: >-
+            #/components/schemas/MsVersionControlRecordAppVersionUsed/properties/appType
