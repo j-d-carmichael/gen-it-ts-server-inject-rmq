@@ -5,13 +5,13 @@
   "helpers": {
     "autoRequeue": false,
     "subscribeOpIds": [
-      "msRolesPermissionsRequestPublish",
-      "msRolesPermissionsRolesChangedPublish"
+      "usersRolesAndPermissionsPermissionsReceiveAllFromService",
+      "usersRolesAndPermissionsRolesRequest"
     ],
     "publishOpIds": [
-      "msNotificationEmailTransactionalHttpExceptionPublish",
-      "msRolesPermissionsReceivePublish",
-      "msRolesPermissionsRolesRequestPublish"
+      "notificationsSendSystem",
+      "usersRolesAndPermissionsPermissionsRequestFromAll",
+      "usersRolesAndPermissionsRolesChanged"
     ]
   }
 }
