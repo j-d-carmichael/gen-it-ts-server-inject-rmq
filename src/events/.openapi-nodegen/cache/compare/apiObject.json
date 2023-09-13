@@ -1,0 +1,309 @@
+{
+  "asyncapi": "2.0.0",
+  "info": {
+    "title": "ms_rabbitmq_d",
+    "version": "1.0.1",
+    "description": "Async api documentation of routing keys and payloads"
+  },
+  "defaultContentType": "application/json",
+  "channels": {
+    "KK.EVENT.CLIENT.APPREALM.SOMERESULT.SOMECLIENT.REGISTRATION": {
+      "publish": {
+        "message": {
+          "payload": {
+            "type": "object",
+            "required": [
+              "fromService",
+              "jsonString"
+            ],
+            "properties": {
+              "fromService": {
+                "type": "string"
+              },
+              "jsonString": {
+                "type": "string"
+              }
+            }
+          },
+          "contentType": "application/json"
+        },
+        "operationId": "kkEventClientApprealmSomeresultSomeclientRegistration",
+        "x-request-definitions": {},
+        "x-response-definitions": "NotificationsSendSystem"
+      },
+      "description": " SOMECLIENT, from SOMERESULT, from APPREALM, from CLIENT, from EVENT, from KK",
+      "endpointName": "KK.EVENT.CLIENT.APPREALM.SOMERESULT.SOMECLIENT.REGISTRATION",
+      "groupName": "KK.EVENT.CLIENT.APPREALM.SOMERESULT.SOMECLIENT.REGISTRATION"
+    },
+    "/notifications/send/system": {
+      "publish": {
+        "message": {
+          "payload": {
+            "type": "object",
+            "required": [
+              "fromService",
+              "jsonString"
+            ],
+            "properties": {
+              "fromService": {
+                "type": "string"
+              },
+              "jsonString": {
+                "type": "string"
+              }
+            }
+          },
+          "contentType": "application/json"
+        },
+        "operationId": "notificationsSendSystem",
+        "x-request-definitions": {},
+        "x-response-definitions": "NotificationsSendSystem"
+      },
+      "description": " send, from notifications",
+      "endpointName": "notifications",
+      "groupName": "notifications"
+    },
+    "/users-roles-and-permissions/permissions/receiveAllFromService": {
+      "publish": {
+        "message": {
+          "payload": {
+            "type": "object",
+            "required": [
+              "fromService",
+              "permissions"
+            ],
+            "properties": {
+              "fromService": {
+                "type": "string"
+              },
+              "permissions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "contentType": "application/json"
+        },
+        "operationId": "usersRolesAndPermissionsPermissionsReceiveAllFromService",
+        "x-request-definitions": {},
+        "x-response-definitions": "UsersRolesAndPermissionsPermissionsUpdateFromService"
+      },
+      "description": " permissions, from users-roles-and-permissions",
+      "endpointName": "users-roles-and-permissions",
+      "groupName": "users-roles-and-permissions"
+    },
+    "/users-roles-and-permissions/permissions/requestFromAll": {
+      "publish": {
+        "message": {
+          "payload": {
+            "type": "object",
+            "properties": {
+              "requestTime": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "contentType": "application/json"
+        },
+        "operationId": "usersRolesAndPermissionsPermissionsRequestFromAll",
+        "x-request-definitions": {},
+        "x-response-definitions": "UsersRolesAndPermissionsPermissionsRequestFromAll"
+      },
+      "description": " permissions, from users-roles-and-permissions",
+      "endpointName": "users-roles-and-permissions",
+      "groupName": "users-roles-and-permissions"
+    },
+    "/users-roles-and-permissions/roles/changed": {
+      "publish": {
+        "message": {
+          "payload": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "roleName",
+                "permissions"
+              ],
+              "properties": {
+                "roleName": {
+                  "type": "string"
+                },
+                "permissions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "contentType": "application/json"
+        },
+        "operationId": "usersRolesAndPermissionsRolesChanged",
+        "x-request-definitions": {},
+        "x-response-definitions": "UsersRolesAndPermissionsRolesAllRoles"
+      },
+      "description": " roles, from users-roles-and-permissions",
+      "endpointName": "users-roles-and-permissions",
+      "groupName": "users-roles-and-permissions"
+    },
+    "/users-roles-and-permissions/roles/request": {
+      "publish": {
+        "message": {
+          "payload": {
+            "type": "object",
+            "properties": {
+              "requestTime": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "requestFrom": {
+                "type": "string"
+              }
+            }
+          },
+          "contentType": "application/json"
+        },
+        "operationId": "usersRolesAndPermissionsRolesRequest",
+        "x-request-definitions": {},
+        "x-response-definitions": "UsersRolesAndPermissionsRolesRequestAll"
+      },
+      "description": " roles, from users-roles-and-permissions",
+      "endpointName": "users-roles-and-permissions",
+      "groupName": "users-roles-and-permissions"
+    }
+  },
+  "components": {
+    "schemas": {
+      "NotificationsSendSystem": {
+        "type": "object",
+        "required": [
+          "fromService",
+          "jsonString"
+        ],
+        "properties": {
+          "fromService": {
+            "type": "string"
+          },
+          "jsonString": {
+            "type": "string"
+          }
+        }
+      },
+      "UsersRolesAndPermissionsPermissionsRequestFromAll": {
+        "type": "object",
+        "properties": {
+          "requestTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UsersRolesAndPermissionsPermissionsUpdateFromService": {
+        "type": "object",
+        "required": [
+          "fromService",
+          "permissions"
+        ],
+        "properties": {
+          "fromService": {
+            "type": "string"
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "UsersRolesAndPermissionsRolesAllRoles": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "roleName",
+            "permissions"
+          ],
+          "properties": {
+            "roleName": {
+              "type": "string"
+            },
+            "permissions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "UsersRolesAndPermissionsRolesRequestAll": {
+        "type": "object",
+        "properties": {
+          "requestTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "requestFrom": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "interfaces": [
+    {
+      "name": "NotificationsSendSystem",
+      "content": {
+        "outputString": "\nexport interface NotificationsSendSystem {\n    fromService: string;\n    jsonString:  string;\n}\n\n"
+      }
+    },
+    {
+      "name": "UsersRolesAndPermissionsPermissionsRequestFromAll",
+      "content": {
+        "outputString": "\nexport interface UsersRolesAndPermissionsPermissionsRequestFromAll {\n    requestTime?: Date;\n}\n\n"
+      }
+    },
+    {
+      "name": "UsersRolesAndPermissionsPermissionsUpdateFromService",
+      "content": {
+        "outputString": "\nexport interface UsersRolesAndPermissionsPermissionsUpdateFromService {\n    fromService: string;\n    permissions: string[];\n}\n\n"
+      }
+    },
+    {
+      "name": "UsersRolesAndPermissionsRolesAllRoles",
+      "content": {
+        "outputString": "export type UsersRolesAndPermissionsRolesAllRoles = UsersRolesAndPermissionsRolesAllRole[];\n\nexport interface UsersRolesAndPermissionsRolesAllRole {\n    permissions: string[];\n    roleName:    string;\n}\n\n"
+      }
+    },
+    {
+      "name": "UsersRolesAndPermissionsRolesRequestAll",
+      "content": {
+        "outputString": "\nexport interface UsersRolesAndPermissionsRolesRequestAll {\n    requestFrom?: string;\n    requestTime?: Date;\n}\n\n"
+      }
+    }
+  ],
+  "operationIds": [
+    "kkEventClientApprealmSomeresultSomeclientRegistration",
+    "notificationsSendSystem",
+    "usersRolesAndPermissionsPermissionsReceiveAllFromService",
+    "usersRolesAndPermissionsPermissionsRequestFromAll",
+    "usersRolesAndPermissionsRolesChanged",
+    "usersRolesAndPermissionsRolesRequest"
+  ],
+  "basePath": "/",
+  "groupNamesWithFirstUrlSegment": {
+    "KK.EVENT.CLIENT.APPREALM.SOMERESULT.SOMECLIENT.REGISTRATION": "KK.EVENT.CLIENT.APPREALM.SOMERESULT.SOMECLIENT.REGISTRATION",
+    "notifications": "notifications",
+    "users-roles-and-permissions": "users-roles-and-permissions"
+  },
+  "endpoints": [
+    "KK.EVENT.CLIENT.APPREALM.SOMERESULT.SOMECLIENT.REGISTRATION",
+    "notifications",
+    "users-roles-and-permissions"
+  ]
+}

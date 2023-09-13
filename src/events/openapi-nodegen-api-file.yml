@@ -5,6 +5,14 @@ info:
   description: Async api documentation of routing keys and payloads
 defaultContentType: application/json
 channels:
+  KK.EVENT.CLIENT.APPREALM.SOMERESULT.SOMECLIENT.REGISTRATION:
+    publish:
+      message:
+        payload:
+          $ref: '#/components/schemas/NotificationsSendSystem'
+        contentType: application/json
+      operationId: kkEventClientApprealmSomeresultSomeclientRegistration
+    description: ' SOMECLIENT, from SOMERESULT, from APPREALM, from CLIENT, from EVENT, from KK'
   /notifications/send/system:
     publish:
       message:

@@ -1,3 +1,4 @@
+export const KKEVENTCLIENTAPPREALMSOMERESULTSOMECLIENTREGISTRATION = 'kkEventClientApprealmSomeresultSomeclientRegistration';
 export const NOTIFICATIONSSENDSYSTEM = 'notificationsSendSystem';
 export const USERSROLESANDPERMISSIONSPERMISSIONSRECEIVEALLFROMSERVICE = 'usersRolesAndPermissionsPermissionsReceiveAllFromService';
 export const USERSROLESANDPERMISSIONSPERMISSIONSREQUESTFROMALL = 'usersRolesAndPermissionsPermissionsRequestFromAll';

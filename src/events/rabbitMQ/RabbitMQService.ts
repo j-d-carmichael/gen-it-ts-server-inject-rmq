@@ -4,18 +4,17 @@ import { Message as amqMessage } from 'amqplib/callback_api';
 import objectReduceByMap from 'object-reduce-by-map';
 import * as operationIds from './operationIds';
 import * as interfaces from './interfaces';
-import usersRolesAndPermissionsPermissionsReceiveAllFromServiceReactHandle from '../reactHandles/UsersRolesAndPermissionsPermissionsReceiveAllFromServiceReactHandle';
-import usersRolesAndPermissionsRolesRequestReactHandle from '../reactHandles/UsersRolesAndPermissionsRolesRequestReactHandle';
+import usersRolesAndPermissionsRolesChangedReactHandle from '../reactHandles/UsersRolesAndPermissionsRolesChangedReactHandle';
 
 
 // OperationID: notificationsSendSystem
 export const publishNotificationsSendSystemMap = {fromService: String, jsonString: String, };
 
-// OperationID: usersRolesAndPermissionsPermissionsRequestFromAll
-export const publishUsersRolesAndPermissionsPermissionsRequestFromAllMap = {requestTime: String, };
+// OperationID: usersRolesAndPermissionsPermissionsReceiveAllFromService
+export const publishUsersRolesAndPermissionsPermissionsReceiveAllFromServiceMap = {fromService: String, permissions: [ String],};
 
-// OperationID: usersRolesAndPermissionsRolesChanged
-export const publishUsersRolesAndPermissionsRolesChangedMap = [ { roleName: String, permissions: [ String],}];
+// OperationID: usersRolesAndPermissionsRolesRequest
+export const publishUsersRolesAndPermissionsRolesRequestMap = {requestTime: String, requestFrom: String, };
 
 export interface RabbitMQServiceSetup extends QWrapperSettings {
   subscribeErrorHandle?: (operationId: string, err: any) => void
@@ -51,28 +50,28 @@ class RabbitMQService {
     
   }
   /**
-   * Path: /users-roles-and-permissions/permissions/requestFromAll publish
-   * OperationID: usersRolesAndPermissionsPermissionsRequestFromAll
+   * Path: /users-roles-and-permissions/permissions/receiveAllFromService publish
+   * OperationID: usersRolesAndPermissionsPermissionsReceiveAllFromService
    * Description:  permissions, from users-roles-and-permissions
    */
-  publishUsersRolesAndPermissionsPermissionsRequestFromAll (payload: interfaces.UsersRolesAndPermissionsPermissionsRequestFromAll ): void {
+  publishUsersRolesAndPermissionsPermissionsReceiveAllFromService (payload: interfaces.UsersRolesAndPermissionsPermissionsUpdateFromService ): void {
     this.setupCheck();
     global.qWrapper.sendToExchange(
-      objectReduceByMap(payload, publishUsersRolesAndPermissionsPermissionsRequestFromAllMap),
-      operationIds.USERSROLESANDPERMISSIONSPERMISSIONSREQUESTFROMALL
+      objectReduceByMap(payload, publishUsersRolesAndPermissionsPermissionsReceiveAllFromServiceMap),
+      operationIds.USERSROLESANDPERMISSIONSPERMISSIONSRECEIVEALLFROMSERVICE
     );
     
   }
   /**
-   * Path: /users-roles-and-permissions/roles/changed publish
-   * OperationID: usersRolesAndPermissionsRolesChanged
+   * Path: /users-roles-and-permissions/roles/request publish
+   * OperationID: usersRolesAndPermissionsRolesRequest
    * Description:  roles, from users-roles-and-permissions
    */
-  publishUsersRolesAndPermissionsRolesChanged (payload: interfaces.UsersRolesAndPermissionsRolesAllRoles ): void {
+  publishUsersRolesAndPermissionsRolesRequest (payload: interfaces.UsersRolesAndPermissionsRolesRequestAll ): void {
     this.setupCheck();
     global.qWrapper.sendToExchange(
-      objectReduceByMap(payload, publishUsersRolesAndPermissionsRolesChangedMap),
-      operationIds.USERSROLESANDPERMISSIONSROLESCHANGED
+      objectReduceByMap(payload, publishUsersRolesAndPermissionsRolesRequestMap),
+      operationIds.USERSROLESANDPERMISSIONSROLESREQUEST
     );
     
   }
@@ -86,47 +85,25 @@ class RabbitMQService {
     global.qWrapper.consume(async (message: amqMessage) => {
       try{
         switch (message.fields.routingKey) {
-            case operationIds.USERSROLESANDPERMISSIONSPERMISSIONSRECEIVEALLFROMSERVICE: {
+            case operationIds.USERSROLESANDPERMISSIONSROLESCHANGED: {
             let messageContent
             try{
               messageContent = JSON.parse(message.content.toString())
             } catch (e) {
               message.content = Buffer.from(JSON.stringify(e));
-              console.error(operationIds.USERSROLESANDPERMISSIONSPERMISSIONSRECEIVEALLFROMSERVICE, ' error parsing JSON: ');
+              console.error(operationIds.USERSROLESANDPERMISSIONSROLESCHANGED, ' error parsing JSON: ');
               return { processed: false, requeue: false };
             }
             try {
-              await usersRolesAndPermissionsPermissionsReceiveAllFromServiceReactHandle(messageContent, operationIds.USERSROLESANDPERMISSIONSPERMISSIONSRECEIVEALLFROMSERVICE);
+              await usersRolesAndPermissionsRolesChangedReactHandle(messageContent, operationIds.USERSROLESANDPERMISSIONSROLESCHANGED);
               
               return { processed: true, requeue: false };
             } catch (e) {
               message.content = Buffer.from(JSON.stringify(e));
               if(this.subscribeErrorHandle){
-                this.subscribeErrorHandle('usersRolesAndPermissionsPermissionsReceiveAllFromService', e);
+                this.subscribeErrorHandle('usersRolesAndPermissionsRolesChanged', e);
               }
-              console.error(operationIds.USERSROLESANDPERMISSIONSPERMISSIONSRECEIVEALLFROMSERVICE, ' error parsing domain method: ' );
-              return { processed: false, requeue: false };
-            }
-          }
-            case operationIds.USERSROLESANDPERMISSIONSROLESREQUEST: {
-            let messageContent
-            try{
-              messageContent = JSON.parse(message.content.toString())
-            } catch (e) {
-              message.content = Buffer.from(JSON.stringify(e));
-              console.error(operationIds.USERSROLESANDPERMISSIONSROLESREQUEST, ' error parsing JSON: ');
-              return { processed: false, requeue: false };
-            }
-            try {
-              await usersRolesAndPermissionsRolesRequestReactHandle(messageContent, operationIds.USERSROLESANDPERMISSIONSROLESREQUEST);
-              
-              return { processed: true, requeue: false };
-            } catch (e) {
-              message.content = Buffer.from(JSON.stringify(e));
-              if(this.subscribeErrorHandle){
-                this.subscribeErrorHandle('usersRolesAndPermissionsRolesRequest', e);
-              }
-              console.error(operationIds.USERSROLESANDPERMISSIONSROLESREQUEST, ' error parsing domain method: ' );
+              console.error(operationIds.USERSROLESANDPERMISSIONSROLESCHANGED, ' error parsing domain method: ' );
               return { processed: false, requeue: false };
             }
           }
