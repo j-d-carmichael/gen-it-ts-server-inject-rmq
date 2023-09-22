@@ -8,11 +8,12 @@ export interface MsRolesPermissionsRole {
 }
 
 export default new DistributedSystemsCache<MsRolesPermissionsRole>({
-  cacheKeyPrefix: 'RolesPermissionsCache:',
-  cacheMaxAgeMs: 60 * 60 * 1000,
+  cacheKeyPrefix: `${packageJson.name}_rolesPermissionsCache:`,
+  cacheMaxAgeMs: '1Hour',
   cachePopulator: async () => {
-    RabbitMQService.publishMsRolesPermissionsRolesRequestPublish({
-      fromService: packageJson.name
+    RabbitMQService.publishUsersRolesAndPermissionsRolesRequestAll({
+      requestFrom: packageJson.name,
+      requestTime: new Date()
     });
   }
 });

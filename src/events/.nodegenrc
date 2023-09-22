@@ -5,12 +5,12 @@
   "helpers": {
     "autoRequeue": false,
     "subscribeOpIds": [
-      "usersRolesAndPermissionsRolesChanged"
+      "usersRolesAndPermissions_rolesAllUpdated"
     ],
     "publishOpIds": [
-      "notificationsSendSystem",
-      "usersRolesAndPermissionsPermissionsReceiveAllFromService",
-      "usersRolesAndPermissionsRolesRequest"
+      "notifications_sendSystem",
+      "usersRolesAndPermissions_permissionsIncomingAllFromOneService",
+      "usersRolesAndPermissions_rolesRequestAll"
     ]
   }
 }

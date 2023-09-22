@@ -5,11 +5,13 @@
   "dependencies": {
     "amqplib": "^0.10.3",
     "async-redis-shared": "^0.2.1",
+    "cli-color": "^2.0.3",
     "distributed-systems-cache": "^1.14.0",
     "proc-env-helper": "^1.0.3",
     "q-wrapper": "^1.0.4"
   },
   "devDependencies": {
-    "@types/amqplib": "^0.10.0"
+    "@types/amqplib": "^0.10.0",
+    "@types/cli-color": "^2.0.3"
   }
 }

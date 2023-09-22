@@ -1,10 +1,8 @@
 import packageJson from 'package.json'
-import connect from 'async-redis-shared/connect';
-import config from '@/config';
 import http, { Http } from '@/http';
 import httpExceptionErrorHandler from '@/common-utils/expressMiddleware/httpExceptionErrorHandler';
 import RabbitMQService from '@/events/rabbitMQ/RabbitMQService';
-import fetchAndEmitPermissions from '@/common-utils/permissions/fetchAndEmitPermissions';
+import startup from '@/utils/startup';
 
 /**
  * Returns a promise allowing the server or cli script to know
@@ -13,9 +11,7 @@ import fetchAndEmitPermissions from '@/common-utils/permissions/fetchAndEmitPerm
 export default async (port: number): Promise<Http> => {
   // Here is a good place to connect to databases if required or setup
   // filesystems or any other async action required before starting:
-  await connect(config.redis);
-  await RabbitMQService.setup(config.rabbitMQ);
-  await fetchAndEmitPermissions({ packageJsonName: packageJson.name, RabbitMQService });
+  await startup();
 
   // Return the http layer, to inject custom middleware pass the HttpOptions
   // argument. See the @/http/index.ts

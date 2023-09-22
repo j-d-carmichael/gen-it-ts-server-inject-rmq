@@ -2,19 +2,22 @@ import { QWrapperDomain } from 'q-wrapper';
 import { QWrapperSettings } from 'q-wrapper/lib/models';
 import { Message as amqMessage } from 'amqplib/callback_api';
 import objectReduceByMap from 'object-reduce-by-map';
+import picomatch from 'picomatch';
 import * as operationIds from './operationIds';
 import * as interfaces from './interfaces';
-import usersRolesAndPermissionsRolesChangedReactHandle from '../reactHandles/UsersRolesAndPermissionsRolesChangedReactHandle';
+
+import usersRolesAndPermissionsRolesAllUpdatedReactHandle from '../reactHandles/UsersRolesAndPermissionsRolesAllUpdatedReactHandle';
 
 
-// OperationID: notificationsSendSystem
+
+// OperationID: notifications_sendSystem
 export const publishNotificationsSendSystemMap = {fromService: String, jsonString: String, };
 
-// OperationID: usersRolesAndPermissionsPermissionsReceiveAllFromService
-export const publishUsersRolesAndPermissionsPermissionsReceiveAllFromServiceMap = {fromService: String, permissions: [ String],};
+// OperationID: usersRolesAndPermissions_permissionsIncomingAllFromOneService
+export const publishUsersRolesAndPermissionsPermissionsIncomingAllFromOneServiceMap = {fromService: String, permissions: [ String],};
 
-// OperationID: usersRolesAndPermissionsRolesRequest
-export const publishUsersRolesAndPermissionsRolesRequestMap = {requestTime: String, requestFrom: String, };
+// OperationID: usersRolesAndPermissions_rolesRequestAll
+export const publishUsersRolesAndPermissionsRolesRequestAllMap = {requestTime: String, requestFrom: String, };
 
 export interface RabbitMQServiceSetup extends QWrapperSettings {
   subscribeErrorHandle?: (operationId: string, err: any) => void
@@ -38,7 +41,7 @@ class RabbitMQService {
 
   /**
    * Path: /notifications/send/system publish
-   * OperationID: notificationsSendSystem
+   * OperationID: notifications_sendSystem
    * Description:  send, from notifications
    */
   publishNotificationsSendSystem (payload: interfaces.NotificationsSendSystem ): void {
@@ -50,31 +53,35 @@ class RabbitMQService {
     
   }
   /**
-   * Path: /users-roles-and-permissions/permissions/receiveAllFromService publish
-   * OperationID: usersRolesAndPermissionsPermissionsReceiveAllFromService
+   * Path: /users-roles-and-permissions/permissions/incomingAllFromOneService publish
+   * OperationID: usersRolesAndPermissions_permissionsIncomingAllFromOneService
    * Description:  permissions, from users-roles-and-permissions
    */
-  publishUsersRolesAndPermissionsPermissionsReceiveAllFromService (payload: interfaces.UsersRolesAndPermissionsPermissionsUpdateFromService ): void {
+  publishUsersRolesAndPermissionsPermissionsIncomingAllFromOneService (payload: interfaces.UsersRolesAndPermissionsPermissionsIncomingAllFromOneService ): void {
     this.setupCheck();
     global.qWrapper.sendToExchange(
-      objectReduceByMap(payload, publishUsersRolesAndPermissionsPermissionsReceiveAllFromServiceMap),
-      operationIds.USERSROLESANDPERMISSIONSPERMISSIONSRECEIVEALLFROMSERVICE
+      objectReduceByMap(payload, publishUsersRolesAndPermissionsPermissionsIncomingAllFromOneServiceMap),
+      operationIds.USERSROLESANDPERMISSIONSPERMISSIONSINCOMINGALLFROMONESERVICE
     );
     
   }
   /**
-   * Path: /users-roles-and-permissions/roles/request publish
-   * OperationID: usersRolesAndPermissionsRolesRequest
+   * Path: /users-roles-and-permissions/roles/requestAll publish
+   * OperationID: usersRolesAndPermissions_rolesRequestAll
    * Description:  roles, from users-roles-and-permissions
    */
-  publishUsersRolesAndPermissionsRolesRequest (payload: interfaces.UsersRolesAndPermissionsRolesRequestAll ): void {
+  publishUsersRolesAndPermissionsRolesRequestAll (payload: interfaces.UsersRolesAndPermissionsRolesRequestAll ): void {
     this.setupCheck();
     global.qWrapper.sendToExchange(
-      objectReduceByMap(payload, publishUsersRolesAndPermissionsRolesRequestMap),
-      operationIds.USERSROLESANDPERMISSIONSROLESREQUEST
+      objectReduceByMap(payload, publishUsersRolesAndPermissionsRolesRequestAllMap),
+      operationIds.USERSROLESANDPERMISSIONSROLESREQUESTALL
     );
     
   }
+  wildcardMatch (incomingRoutingKey: string, matchRoutingKey: string) {
+    return picomatch.isMatch(incomingRoutingKey, matchRoutingKey) ? incomingRoutingKey : '';
+  }
+
   /**
    * All subscribe events get handled in the respective subscribeHandles
    * Each routing key is the operation id.
@@ -83,39 +90,28 @@ class RabbitMQService {
    */
   private subscribe (): void {
     global.qWrapper.consume(async (message: amqMessage) => {
-      try{
-        switch (message.fields.routingKey) {
-            case operationIds.USERSROLESANDPERMISSIONSROLESCHANGED: {
-            let messageContent
-            try{
-              messageContent = JSON.parse(message.content.toString())
-            } catch (e) {
-              message.content = Buffer.from(JSON.stringify(e));
-              console.error(operationIds.USERSROLESANDPERMISSIONSROLESCHANGED, ' error parsing JSON: ');
-              return { processed: false, requeue: false };
-            }
-            try {
-              await usersRolesAndPermissionsRolesChangedReactHandle(messageContent, operationIds.USERSROLESANDPERMISSIONSROLESCHANGED);
+      switch (message.fields.routingKey) {
+        case this.wildcardMatch(message.fields.routingKey, operationIds.USERSROLESANDPERMISSIONSROLESALLUPDATED): {
+          let messageContent = JSON.parse(message.content.toString())
+          try {
+            await usersRolesAndPermissionsRolesAllUpdatedReactHandle(messageContent, operationIds.USERSROLESANDPERMISSIONSROLESALLUPDATED);
               
-              return { processed: true, requeue: false };
-            } catch (e) {
-              message.content = Buffer.from(JSON.stringify(e));
-              if(this.subscribeErrorHandle){
-                this.subscribeErrorHandle('usersRolesAndPermissionsRolesChanged', e);
-              }
-              console.error(operationIds.USERSROLESANDPERMISSIONSROLESCHANGED, ' error parsing domain method: ' );
-              return { processed: false, requeue: false };
+            return { processed: true, requeue: false };
+          } catch (e) {
+            message.content = Buffer.from(JSON.stringify(e));
+            if(this.subscribeErrorHandle){
+              this.subscribeErrorHandle('usersRolesAndPermissions_rolesAllUpdated', e);
             }
+            console.error(operationIds.USERSROLESANDPERMISSIONSROLESALLUPDATED, ' error parsing domain method: ' );
+            return { processed: false, requeue: false };
           }
-            default:
-            return {
-              processed: true,
-              requeue: false
-            };
         }
-      } catch (e) {
-        message.content = Buffer.from(JSON.stringify(e));
-        return { processed: false, requeue: false };
+
+          default:
+          return {
+            processed: true,
+            requeue: false
+          };
       }
     });
   }

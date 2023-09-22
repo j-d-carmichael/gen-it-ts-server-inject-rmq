@@ -1,8 +1,0 @@
-import { UsersRolesAndPermissionsPermissionsUpdateFromService } from '../rabbitMQ/interfaces';
-
-export default async (
-  payload: UsersRolesAndPermissionsPermissionsUpdateFromService,
-  operationId?: string
-): Promise<void> => {
-  // todo:  Handle the payload...
-};

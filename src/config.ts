@@ -32,16 +32,17 @@ export default {
   redis: {
     // this effectively determines the collection index which is typically an integer
     db: ProcEnvHelper.getOrSetDefault('REDIS_DB', 1),
+    url: ProcEnvHelper.getOrSetDefault('REDIS_URL', 'redis://redis:6379'), // docker service is the default
   },
 
   // Rabbit MQ
   rabbitMQ: {
     connection: {
       protocol: 'amqp',
-      hostname: ProcEnvHelper.getOrSetDefault('RABBITMQ_HOST', 'rabbitmq.liffery.net'),
+      hostname: ProcEnvHelper.getOrSetDefault('RABBITMQ_HOST', 'rabbitmq'),
       port: ProcEnvHelper.getOrSetDefault('RABBITMQ_PORT', 5672),
-      username: ProcEnvHelper.getOrSetDefault('RABBITMQ_USER', 'guest'),
-      password: ProcEnvHelper.getOrSetDefault('RABBITMQ_PW', 'guest'),
+      username: ProcEnvHelper.getOrSetDefault('RABBITMQ_USER', 'admin'),
+      password: ProcEnvHelper.getOrSetDefault('RABBITMQ_PW', 'admin'),
       verboseLogging: ProcEnvHelper.getOrSetDefault('RABBITMQ_VERBOSE', true),
     },
     queue: ProcEnvHelper.getOrSetDefault('RABBITMQ_QUEUE', `q.${packageJson.name}`),
