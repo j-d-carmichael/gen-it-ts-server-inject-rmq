@@ -8,6 +8,7 @@
       "usersRolesAndPermissions_rolesAllUpdated"
     ],
     "publishOpIds": [
+      "notifications_sendRmqReactHandleError",
       "notifications_sendSystem",
       "usersRolesAndPermissions_permissionsIncomingAllFromOneService",
       "usersRolesAndPermissions_rolesRequestAll"

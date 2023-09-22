@@ -50,6 +50,10 @@ export default {
     dleExchange: ProcEnvHelper.getOrSetDefault('RABBITMQ_DLE_EXCHANGE', 'q.dleExchange'),
     exchange: ProcEnvHelper.getOrSetDefault('RABBITMQ_EXCHANGE', 'main'),
     exchangeType: ProcEnvHelper.getOrSetDefault('RABBITMQ_EXCHANGE_TYPE', 'fanout'),
+    subscribeErrorHandle: rabbitMQErrorHandler(
+      (MsNotificationEmailRabbitMqError: any) => RabbitMQService.publishMsNotificationEmailTransactionalRabbitMqErrorPublish(MsNotificationEmailRabbitMqError),
+      packageJson
+    )
   },
 
   // request worker config

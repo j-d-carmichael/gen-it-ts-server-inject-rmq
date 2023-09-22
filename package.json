@@ -8,10 +8,12 @@
     "cli-color": "^2.0.3",
     "distributed-systems-cache": "^1.14.0",
     "proc-env-helper": "^1.0.3",
+    "picomatch": "^2.3.1",
     "q-wrapper": "^1.0.4"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.0",
-    "@types/cli-color": "^2.0.3"
+    "@types/cli-color": "^2.0.3",
+    "@types/picomatch": "^2.3.0"
   }
 }

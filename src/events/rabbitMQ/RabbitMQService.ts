@@ -40,6 +40,20 @@ class RabbitMQService {
   }
 
   /**
+   * Path: /notifications/send/rmq/reactHandleError publish
+   * OperationID: notifications_sendRmqReactHandleError
+   * Description:  rmq, from send, from notifications
+   */
+  publishNotificationsSendRmqReactHandleError (payload: interfaces.NotificationsSendRmqReactHandleError ): void {
+    this.setupCheck();
+    global.qWrapper.sendToExchange(
+      objectReduceByMap(payload, publishNotificationsSendRmqReactHandleErrorMap),
+      operationIds.NOTIFICATIONSSENDRMQREACTHANDLEERROR
+    );
+
+  }
+
+  /**
    * Path: /notifications/send/system publish
    * OperationID: notifications_sendSystem
    * Description:  send, from notifications
@@ -50,7 +64,7 @@ class RabbitMQService {
       objectReduceByMap(payload, publishNotificationsSendSystemMap),
       operationIds.NOTIFICATIONSSENDSYSTEM
     );
-    
+
   }
   /**
    * Path: /users-roles-and-permissions/permissions/incomingAllFromOneService publish
@@ -63,7 +77,7 @@ class RabbitMQService {
       objectReduceByMap(payload, publishUsersRolesAndPermissionsPermissionsIncomingAllFromOneServiceMap),
       operationIds.USERSROLESANDPERMISSIONSPERMISSIONSINCOMINGALLFROMONESERVICE
     );
-    
+
   }
   /**
    * Path: /users-roles-and-permissions/roles/requestAll publish
@@ -76,7 +90,7 @@ class RabbitMQService {
       objectReduceByMap(payload, publishUsersRolesAndPermissionsRolesRequestAllMap),
       operationIds.USERSROLESANDPERMISSIONSROLESREQUESTALL
     );
-    
+
   }
   wildcardMatch (incomingRoutingKey: string, matchRoutingKey: string) {
     return picomatch.isMatch(incomingRoutingKey, matchRoutingKey) ? incomingRoutingKey : '';
@@ -95,7 +109,7 @@ class RabbitMQService {
           let messageContent = JSON.parse(message.content.toString())
           try {
             await usersRolesAndPermissionsRolesAllUpdatedReactHandle(messageContent, operationIds.USERSROLESANDPERMISSIONSROLESALLUPDATED);
-              
+
             return { processed: true, requeue: false };
           } catch (e) {
             message.content = Buffer.from(JSON.stringify(e));
