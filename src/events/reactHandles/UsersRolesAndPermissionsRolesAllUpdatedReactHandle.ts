@@ -6,7 +6,7 @@ export default async (
   operationId?: string
 ): Promise<void> => {
   await RolesPermissionsCache.clearAllCacheRecords();
-  for (let i = 0; i < payload.length; ++i) {
-    await RolesPermissionsCache.setCache(payload[i].roleName, payload[i]);
+  for (let i = 0; i < payload.allRoles.length; ++i) {
+    await RolesPermissionsCache.setCache(payload.allRoles[i].roleName, payload.allRoles[i]);
   }
 };
