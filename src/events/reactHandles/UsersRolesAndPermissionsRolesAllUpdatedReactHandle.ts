@@ -1,8 +1,8 @@
-import { UsersRolesAndPermissionsRolesAllRoles } from '../rabbitMQ/interfaces';
+import { UsersRolesAndPermissionsRolesAllUpdated } from '../rabbitMQ/interfaces';
 import RolesPermissionsCache from '@/cache/RolesPermissionsCache';
 
 export default async (
-  payload: UsersRolesAndPermissionsRolesAllRoles,
+  payload: UsersRolesAndPermissionsRolesAllUpdated,
   operationId?: string
 ): Promise<void> => {
   await RolesPermissionsCache.clearAllCacheRecords();
