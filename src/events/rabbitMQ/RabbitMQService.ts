@@ -10,6 +10,9 @@ import usersRolesAndPermissionsRolesAllUpdatedReactHandle from '../reactHandles/
 
 
 
+// OperationID: notifications_sendRmqReactHandleError
+export const publishNotificationsSendRmqReactHandleErrorMap = {operationId: String, service: String, stack: String, };
+
 // OperationID: notifications_sendSystem
 export const publishNotificationsSendSystemMap = {fromService: String, jsonString: String, };
 
@@ -52,7 +55,6 @@ class RabbitMQService {
     );
 
   }
-
   /**
    * Path: /notifications/send/system publish
    * OperationID: notifications_sendSystem
@@ -121,7 +123,7 @@ class RabbitMQService {
           }
         }
 
-          default:
+        default:
           return {
             processed: true,
             requeue: false
