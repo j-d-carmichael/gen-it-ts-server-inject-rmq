@@ -49,11 +49,7 @@ export default {
     dleQueue: ProcEnvHelper.getOrSetDefault('RABBITMQ_DLE_QUEUE', 'q.dle_queue'),
     dleExchange: ProcEnvHelper.getOrSetDefault('RABBITMQ_DLE_EXCHANGE', 'q.dleExchange'),
     exchange: ProcEnvHelper.getOrSetDefault('RABBITMQ_EXCHANGE', 'main'),
-    exchangeType: ProcEnvHelper.getOrSetDefault('RABBITMQ_EXCHANGE_TYPE', 'fanout'),
-    subscribeErrorHandle: rabbitMQErrorHandler(
-      (MsNotificationEmailRabbitMqError: any) => RabbitMQService.publishMsNotificationEmailTransactionalRabbitMqErrorPublish(MsNotificationEmailRabbitMqError),
-      packageJson
-    )
+    exchangeType: ProcEnvHelper.getOrSetDefault('RABBITMQ_EXCHANGE_TYPE', 'fanout')
   },
 
   // request worker config
