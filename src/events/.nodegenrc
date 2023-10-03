@@ -9,6 +9,7 @@
     ],
     "publishOpIds": [
       "notifications_sendRmqReactHandleError",
+      "notifications_sendHttpException",
       "notifications_sendSystem",
       "usersRolesAndPermissions_permissionsIncomingAllFromOneService",
       "usersRolesAndPermissions_rolesRequestAll"

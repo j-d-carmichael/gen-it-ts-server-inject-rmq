@@ -9,6 +9,8 @@ import * as interfaces from './interfaces';
 import usersRolesAndPermissionsRolesAllUpdatedReactHandle from '../reactHandles/UsersRolesAndPermissionsRolesAllUpdatedReactHandle';
 
 
+// OperationID: notifications_sendHttpException
+export const publishNotificationsSendHttpExceptionMap = {service: String, err: String, stack: String, };
 
 // OperationID: notifications_sendRmqReactHandleError
 export const publishNotificationsSendRmqReactHandleErrorMap = {operationId: String, service: String, stack: String, };
@@ -40,6 +42,20 @@ class RabbitMQService {
     if (!global.qWrapper) {
       throw new Error('Ensure you call the setup method 1st before calling anything else from this class and call it only once.');
     }
+  }
+
+  /**
+   * Path: /notifications/send/httpException publish
+   * OperationID: notifications_sendHttpException
+   * Description:  send, from notifications
+   */
+  publishNotificationsSendHttpException (payload: interfaces.NotificationsSendHttpException ): void {
+    this.setupCheck();
+    global.qWrapper.sendToExchange(
+      objectReduceByMap(payload, publishNotificationsSendHttpExceptionMap),
+      operationIds.NOTIFICATIONSSENDHTTPEXCEPTION
+    );
+
   }
 
   /**

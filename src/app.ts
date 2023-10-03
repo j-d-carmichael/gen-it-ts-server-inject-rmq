@@ -17,7 +17,7 @@ export default async (port: number): Promise<Http> => {
   // argument. See the @/http/index.ts
   return http(port, {
     httpException: {
-      errorHook: httpExceptionErrorHandler(RabbitMQService.publishNotificationsSendSystem, packageJson.name)
+      errorHook: httpExceptionErrorHandler(RabbitMQService.publishNotificationsSendHttpException, packageJson.name)
     }
   });
 };
