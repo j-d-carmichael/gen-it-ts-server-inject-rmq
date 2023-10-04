@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { ProcEnvHelper } from 'proc-env-helper';
 import packageJson from '../package.json';
+import { RabbitMQServiceSetup } from '@/events/rabbitMQ/RabbitMQService';
 
 dotenv.config();
 
@@ -43,14 +44,16 @@ export default {
       port: ProcEnvHelper.getOrSetDefault('RABBITMQ_PORT', 5672),
       username: ProcEnvHelper.getOrSetDefault('RABBITMQ_USER', 'admin'),
       password: ProcEnvHelper.getOrSetDefault('RABBITMQ_PW', 'admin'),
-      verboseLogging: ProcEnvHelper.getOrSetDefault('RABBITMQ_VERBOSE', true),
+      vhost: 'vhost',
     },
+    verboseLogging: ProcEnvHelper.getOrSetDefault('RABBITMQ_VERBOSE', false),
+    veryVerboseLogging: ProcEnvHelper.getOrSetDefault('RABBITMQ_VERY_VERBOSE', false),
     queue: ProcEnvHelper.getOrSetDefault('RABBITMQ_QUEUE', `q.${packageJson.name}`),
     dleQueue: ProcEnvHelper.getOrSetDefault('RABBITMQ_DLE_QUEUE', 'q.dle_queue'),
     dleExchange: ProcEnvHelper.getOrSetDefault('RABBITMQ_DLE_EXCHANGE', 'q.dleExchange'),
-    exchange: ProcEnvHelper.getOrSetDefault('RABBITMQ_EXCHANGE', 'main'),
-    exchangeType: ProcEnvHelper.getOrSetDefault('RABBITMQ_EXCHANGE_TYPE', 'fanout')
-  },
+    exchange: ProcEnvHelper.getOrSetDefault('RABBITMQ_EXCHANGE', 'amq.fanout'),
+    exchangeType: ProcEnvHelper.getOrSetDefault('RABBITMQ_EXCHANGE_TYPE', 'fanout'),
+  } as RabbitMQServiceSetup,
 
   // request worker config
   requestWorker: {
