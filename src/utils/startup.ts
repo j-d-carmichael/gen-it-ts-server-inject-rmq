@@ -11,7 +11,10 @@ export default async () => {
   await RabbitMQService.setup({
       ...config.rabbitMQ,
       ...{
-        subscribeErrorHandle: rabbitMQErrorHandler(RabbitMQService.publishNotificationsSendRmqReactHandleError, packageJson.name)
+        subscribeErrorHandle: rabbitMQErrorHandler(
+          (MsNotificationEmailRabbitMqError: any) => RabbitMQService.publishNotificationsSendRmqReactHandleError(MsNotificationEmailRabbitMqError),
+          packageJson
+        )
       }
     }
   );
