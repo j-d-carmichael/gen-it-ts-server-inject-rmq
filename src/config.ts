@@ -16,7 +16,7 @@ export default {
 
   // Instance
   env: ProcEnvHelper.getOrSetDefault('ENVIRONMENT', 'production'),
-  port: ProcEnvHelper.getOrSetDefault('PORT', 3501),
+  port: ProcEnvHelper.getOrSetDefault('PORT', 8080),
 
   // Cors white list of URLs
   corsWhiteList: ProcEnvHelper.getOrSetDefault('CORS_WHITELIST', '*'),
