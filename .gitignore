@@ -1,9 +1,15 @@
 !.gitkeep
+
+src/events/.openapi-nodegen/git
+
 node_modules
+
 build/
+
+.idea
 .env
 .DS_Store
-npm-debug.log
 .openapi-nodegen/git/
-src/events/.openapi-nodegen/git
+
+npm-debug.log
 coverage
